@@ -48,8 +48,8 @@
 - 모집 날짜 자동 종료 로직 (운영 자동화)
 
 ### ✅ 배포 / 인프라 운영 (기여도 100%)
-- **Nginx + HTTPS 서버 구성** (Let’s Encrypt SSL 인증서 적용)
-- **Docker Compose 기반** 다중 서버 운영
+- **Nginx + HTTPS 서버 구성** 
+- **Kubenetes 기반** 다중 서버 운영
 - AWS EC2 기반 인프라 관리
 - GitHub Actions 기반 **CI/CD 자동 배포 파이프라인 구축**
 
@@ -64,8 +64,8 @@
 - Selenium + Kafka (크롤링 → 비동기 저장)
 
 ### 🛠 Infra / DevOps
-- **Docker**, **Docker Compose**, **Nginx** (Reverse Proxy)
-- AWS EC2, S3, Route 53
+- **Docker**, **Docker Compose**, **Kubenetes** , **Nginx**
+- AWS EC2, S3, RDS, Route 53
 - GitHub Actions (CI/CD), Let’s Encrypt (HTTPS)
 
 ### 📦 기타
