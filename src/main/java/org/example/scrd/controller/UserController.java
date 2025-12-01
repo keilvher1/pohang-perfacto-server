@@ -13,7 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/scrd/api/user")
+@RequestMapping("/perfacto/api/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;

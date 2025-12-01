@@ -9,9 +9,11 @@ import org.example.scrd.util.JwtUtil;
 import org.example.scrd.dto.UserDto;
 import org.example.scrd.controller.response.KakaoLoginResponse;
 import org.example.scrd.controller.response.AppleLoginResponse;
+import org.example.scrd.controller.response.NaverLoginResponse;
 import org.example.scrd.service.AuthService;
 import org.example.scrd.service.KakaoService;
 import org.example.scrd.service.AppleService;
+import org.example.scrd.service.NaverService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +29,7 @@ public class AuthController {
     private final AuthService authService; // 사용자 인증 관련 서비스
     private final KakaoService kakaoService; // 카카오 API와 통신하는 서비스
     private final AppleService appleService; // 애플 API와 통신하는 서비스
+    private final NaverService naverService; // 네이버 API와 통신하는 서비스
     private final JwtUtil jwtUtil;
 
     @Value("${custom.jwt.secret}") // application properties에서 JWT 비밀키를 주입받음
@@ -37,12 +40,12 @@ public class AuthController {
     @Value("${custom.jwt.refresh-expire-time-ms}") // JWT 만료 시간을 주입받음
     private long EXPIRE_REFRESH_TIME_MS;
 
-    @GetMapping("/scrd/auth/kakao-login")
+    @GetMapping("/perfacto/auth/kakao-login")
     public ResponseEntity<KakaoLoginResponse> kakaoLogin(
             @RequestParam String code,
             HttpServletRequest request,
             HttpServletResponse response) { // HttpServletResponse 추가
-
+        System.out.println("code = " + code);
         UserDto userDto =
                 authService.kakaoLogin(
                         kakaoService.kakaoLogin(code, request.getHeader("Origin") + "/login/oauth/kakao"));
@@ -63,7 +66,7 @@ public class AuthController {
                         .build());
     }
 
-    @PostMapping("/scrd/auth/apple-login")
+    @PostMapping("/perfacto/auth/apple-login")
     public ResponseEntity<AppleLoginResponse> appleLogin(
             @RequestParam(required = false) String code,
             @RequestParam(required = false) String id_token,
@@ -116,5 +119,34 @@ public class AuthController {
             e.printStackTrace();
             return ResponseEntity.internalServerError().build();
         }
+    }
+
+    @GetMapping("/perfacto/auth/naver-login")
+    public ResponseEntity<NaverLoginResponse> naverLogin(
+            @RequestParam String code,
+            @RequestParam String state,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+        System.out.println("code = " + code);
+        System.out.println("state = " + state);
+
+        UserDto userDto = authService.naverLogin(
+                naverService.naverLogin(code, state, request.getHeader("Origin") + "/login/oauth/naver"));
+
+        // JWT 토큰 생성
+        List<String> jwtToken = jwtUtil.createToken(userDto.getId(), SECRET_KEY, EXPIRE_TIME_MS, EXPIRE_REFRESH_TIME_MS);
+
+        // 액세스 토큰을 Authorization 헤더, X-Refresh-Token 헤더에 추가
+        response.setHeader("Authorization", "Bearer " + jwtToken.get(0));
+        response.setHeader("X-Refresh-Token", jwtToken.get(1));
+
+        // 응답 본문에 JWT 토큰 및 사용자 정보 추가
+        return ResponseEntity.ok(
+                NaverLoginResponse.builder()
+                        .name(userDto.getName())
+                        .profileImageUrl(userDto.getProfileImageUrl())
+                        .email(userDto.getEmail())
+                        .naverId(userDto.getNaverId())
+                        .build());
     }
 }

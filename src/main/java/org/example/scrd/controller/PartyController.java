@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/scrd/api/party")
+@RequestMapping("/perfacto/api/party")
 public class PartyController {
 
     private final PartyService partyService;

@@ -27,6 +27,9 @@ public class User extends BaseEntity {
     @Column(name = "apple_id")
     private String appleId;
 
+    @Column(name = "naver_id")
+    private String naverId;
+
     @Setter
     @Column(columnDefinition = "varchar(200)")
     private String name;
@@ -69,6 +72,7 @@ public class User extends BaseEntity {
         return User.builder()
                 .kakaoId(dto.getKakaoId())
                 .appleId(dto.getAppleId())
+                .naverId(dto.getNaverId())
                 .name(dto.getName())
                 .email(dto.getEmail())
                 .profileImageUrl(dto.getProfileImageUrl())

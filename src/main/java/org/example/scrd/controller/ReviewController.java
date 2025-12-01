@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/scrd/api")
+@RequestMapping("/perfacto/api")
 @RequiredArgsConstructor
 public class ReviewController {
     private final ReviewService reviewService;
@@ -31,6 +31,7 @@ public class ReviewController {
             @PathVariable Long themeId,
             @RequestBody ReviewRequest request,
             @AuthenticationPrincipal User user) {
+        System.out.println("리뷰 등록 API 호출");
 
         Theme theme = themeService.getThemeById(themeId);
         reviewService.addReview(ReviewCreateRequestDto.from(request), user.getId(), theme, request.getTagIds());

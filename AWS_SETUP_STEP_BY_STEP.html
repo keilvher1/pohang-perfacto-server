@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Perfacto Guide</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Perfacto Guide</h1>
+</header>
+<h1 id="aws-free-tier-설정-가이드---단계별-상세-안내">AWS Free Tier 설정
+가이드 - 단계별 상세 안내</h1>
+<h2 id="목차">📋 목차</h2>
+<ol type="1">
+<li><a href="#1-aws-계정-생성">AWS 계정 생성</a></li>
+<li><a href="#2-rds-mysql-데이터베이스-설정">RDS MySQL 데이터베이스
+설정</a></li>
+<li><a href="#3-ec2-인스턴스-생성">EC2 인스턴스 생성</a></li>
+<li><a href="#4-ec2-환경-설정">EC2 환경 설정</a></li>
+<li><a href="#5-spring-boot-애플리케이션-배포">Spring Boot 애플리케이션
+배포</a></li>
+<li><a href="#6-nginx-및-보안-설정">Nginx 및 보안 설정</a></li>
+<li><a href="#7-테스트-및-검증">테스트 및 검증</a></li>
+</ol>
+<hr />
+<h2 id="aws-계정-생성">1. AWS 계정 생성</h2>
+<h3 id="aws-계정-만들기">1.1 AWS 계정 만들기</h3>
+<ol type="1">
+<li><p><strong>AWS 홈페이지 접속</strong></p>
+<ul>
+<li>https://aws.amazon.com/ko/</li>
+<li>우측 상단 “AWS 계정 생성” 클릭</li>
+</ul></li>
+<li><p><strong>이메일 및 계정 정보 입력</strong></p>
+<pre><code>이메일 주소: your-email@example.com
+AWS 계정 이름: perfacto-production</code></pre></li>
+<li><p><strong>루트 사용자 암호 설정</strong></p>
+<ul>
+<li>강력한 비밀번호 사용 (대소문자, 숫자, 특수문자 포함)</li>
+<li>안전한 곳에 저장</li>
+</ul></li>
+<li><p><strong>연락처 정보 입력</strong></p>
+<ul>
+<li>개인 또는 비즈니스 선택</li>
+<li>전화번호, 주소 입력</li>
+</ul></li>
+<li><p><strong>결제 정보 입력</strong></p>
+<ul>
+<li>신용카드 또는 체크카드 등록</li>
+<li><strong>주의</strong>: Free Tier 사용 시에도 카드 등록 필요</li>
+<li><strong>Free Tier 범위 내에서는 과금되지 않음</strong></li>
+<li>$1 승인 테스트 후 자동 취소됨</li>
+</ul></li>
+<li><p><strong>신원 확인</strong></p>
+<ul>
+<li>전화번호 인증</li>
+<li>자동 음성 또는 SMS로 인증 코드 수신</li>
+<li>4자리 코드 입력</li>
+</ul></li>
+<li><p><strong>지원 플랜 선택</strong></p>
+<ul>
+<li><strong>“기본 지원 - 무료” 선택</strong></li>
+<li>유료 플랜은 필요 없음</li>
+</ul></li>
+<li><p><strong>계정 생성 완료</strong></p>
+<ul>
+<li>환영 이메일 수신 확인</li>
+<li>몇 분 후 계정 활성화됨</li>
+</ul></li>
+</ol>
+<h3 id="iam-사용자-생성-보안-강화">1.2 IAM 사용자 생성 (보안 강화)</h3>
+<ol type="1">
+<li><p><strong>AWS Management Console 로그인</strong></p>
+<ul>
+<li>https://console.aws.amazon.com</li>
+<li>루트 계정으로 로그인</li>
+</ul></li>
+<li><p><strong>IAM 서비스 검색</strong></p>
+<ul>
+<li>상단 검색창에 “IAM” 입력</li>
+<li>IAM 서비스 클릭</li>
+</ul></li>
+<li><p><strong>사용자 추가</strong></p>
+<ul>
+<li>좌측 메뉴 “사용자” 클릭</li>
+<li>“사용자 추가” 버튼 클릭</li>
+<li>사용자 이름: <code>perfacto-admin</code></li>
+<li>AWS 액세스 유형: “AWS Management Console 액세스” 체크</li>
+<li>콘솔 비밀번호: “사용자 지정 비밀번호” 선택</li>
+<li>비밀번호 재설정 필요: 체크 해제</li>
+</ul></li>
+<li><p><strong>권한 설정</strong></p>
+<ul>
+<li>“기존 정책 직접 연결” 선택</li>
+<li><code>AdministratorAccess</code> 검색 및 체크</li>
+<li>“다음: 태그” 클릭</li>
+<li>“다음: 검토” 클릭</li>
+<li>“사용자 만들기” 클릭</li>
+</ul></li>
+<li><p><strong>로그인 정보 저장</strong></p>
+<pre><code>콘솔 로그인 링크: https://YOUR_ACCOUNT_ID.signin.aws.amazon.com/console
+사용자 이름: perfacto-admin
+비밀번호: (설정한 비밀번호)</code></pre>
+<ul>
+<li><strong>이제부터 이 IAM 사용자로 로그인!</strong></li>
+</ul></li>
+</ol>
+<h3 id="리전-선택">1.3 리전 선택</h3>
+<ol type="1">
+<li><strong>콘솔 우측 상단 리전 확인</strong>
+<ul>
+<li>현재 리전 표시됨 (예: 버지니아 북부)</li>
+</ul></li>
+<li><strong>서울 리전으로 변경</strong>
+<ul>
+<li>리전 드롭다운 클릭</li>
+<li><strong>“아시아 태평양(서울) ap-northeast-2”</strong> 선택</li>
+<li>⚠️ <strong>모든 작업을 서울 리전에서 수행!</strong></li>
+</ul></li>
+</ol>
+<h3 id="비용-알림-설정">1.4 비용 알림 설정</h3>
+<ol type="1">
+<li><strong>결제 대시보드 이동</strong>
+<ul>
+<li>우측 상단 계정명 클릭</li>
+<li>“결제 및 비용 관리” 클릭</li>
+</ul></li>
+<li><strong>예산 생성</strong>
+<ul>
+<li>좌측 메뉴 “예산” 클릭</li>
+<li>“예산 생성” 클릭</li>
+<li>템플릿: “비용 예산”</li>
+<li>예산 이름: <code>perfacto-monthly-budget</code></li>
+<li>예산 금액: <code>$10</code> (알림용)</li>
+<li>이메일 주소 입력</li>
+<li>“예산 생성” 클릭</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="rds-mysql-데이터베이스-설정">2. RDS MySQL 데이터베이스 설정</h2>
+<h3 id="rds-콘솔-접속">2.1 RDS 콘솔 접속</h3>
+<ol type="1">
+<li><strong>RDS 서비스 검색</strong>
+<ul>
+<li>상단 검색창에 “RDS” 입력</li>
+<li>“RDS” 클릭</li>
+</ul></li>
+<li><strong>리전 확인</strong>
+<ul>
+<li>우측 상단이 “서울” 리전인지 재확인</li>
+</ul></li>
+</ol>
+<h3 id="데이터베이스-생성">2.2 데이터베이스 생성</h3>
+<ol type="1">
+<li><p><strong>데이터베이스 생성 시작</strong></p>
+<ul>
+<li>“데이터베이스 생성” 버튼 클릭</li>
+</ul></li>
+<li><p><strong>엔진 옵션</strong></p>
+<pre><code>엔진 유형: MySQL
+버전: MySQL 8.0.35 (최신 8.0 버전)</code></pre></li>
+<li><p><strong>템플릿</strong></p>
+<pre><code>⚠️ 중요: &quot;프리 티어&quot; 선택!</code></pre></li>
+<li><p><strong>설정</strong></p>
+<pre><code>DB 인스턴스 식별자: perfacto-db
+마스터 사용자 이름: admin
+마스터 암호: (강력한 비밀번호 설정)
+암호 확인: (동일하게 재입력)</code></pre>
+<p><strong>비밀번호 예시</strong>: <code>Perfacto2025!@#</code></p>
+<ul>
+<li>안전한 곳에 저장하세요!</li>
+</ul></li>
+<li><p><strong>DB 인스턴스 크기</strong></p>
+<pre><code>DB 인스턴스 클래스: db.t3.micro (프리 티어)
+스토리지 유형: 범용 SSD (gp2)
+할당된 스토리지: 20GB (프리 티어 최대)
+스토리지 자동 조정: 활성화 체크 해제</code></pre></li>
+<li><p><strong>연결</strong></p>
+<pre><code>Virtual Private Cloud (VPC): 기본 VPC
+퍼블릭 액세스: 예 ✅ (중요: 개발 단계에서 필요)
+VPC 보안 그룹: 새로 생성
+보안 그룹 이름: perfacto-db-sg
+가용 영역: 기본값</code></pre></li>
+<li><p><strong>추가 구성 (확장)</strong></p>
+<pre><code>초기 데이터베이스 이름: perfacto
+DB 파라미터 그룹: 기본값
+백업 보존 기간: 7일
+암호화: 비활성화 (프리 티어)
+성능 개선 도구: 비활성화 (비용 절감)
+모니터링: 기본 모니터링</code></pre></li>
+<li><p><strong>생성 완료</strong></p>
+<ul>
+<li>“데이터베이스 생성” 버튼 클릭</li>
+<li><strong>생성 완료까지 약 5-10분 소요</strong></li>
+<li>상태가 “사용 가능”이 될 때까지 대기</li>
+</ul></li>
+</ol>
+<h3 id="보안-그룹-설정">2.3 보안 그룹 설정</h3>
+<ol type="1">
+<li><strong>생성된 DB 클릭</strong>
+<ul>
+<li>상태가 “사용 가능”인 <code>perfacto-db</code> 클릭</li>
+</ul></li>
+<li><strong>연결 &amp; 보안 탭</strong>
+<ul>
+<li>“VPC 보안 그룹” 클릭 (파란색 링크)</li>
+</ul></li>
+<li><strong>인바운드 규칙 편집</strong>
+<ul>
+<li>“인바운드 규칙” 탭 클릭</li>
+<li>“인바운드 규칙 편집” 버튼 클릭</li>
+<li>“규칙 추가” 클릭</li>
+</ul>
+<pre><code>유형: MySQL/Aurora
+프로토콜: TCP
+포트 범위: 3306
+소스: 내 IP (자동으로 현재 IP 입력됨)
+설명: My development IP</code></pre>
+<ul>
+<li>“규칙 저장” 클릭</li>
+</ul></li>
+</ol>
+<h3 id="엔드포인트-확인-및-연결-테스트">2.4 엔드포인트 확인 및 연결
+테스트</h3>
+<ol type="1">
+<li><p><strong>엔드포인트 주소 복사</strong></p>
+<ul>
+<li>RDS 콘솔로 돌아가기</li>
+<li><code>perfacto-db</code> 클릭</li>
+<li>“연결 &amp; 보안” 섹션</li>
+<li>엔드포인트 복사 (예:
+<code>perfacto-db.xxxxxxxxx.ap-northeast-2.rds.amazonaws.com</code>)</li>
+</ul></li>
+<li><p><strong>로컬에서 연결 테스트</strong></p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MySQL 클라이언트로 연결</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql</span> <span class="at">-h</span> perfacto-db.xxxxxxxxx.ap-northeast-2.rds.amazonaws.com <span class="at">-P</span> 3306 <span class="at">-u</span> admin <span class="at">-p</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 비밀번호 입력</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 성공하면 mysql&gt; 프롬프트 표시됨</span></span></code></pre></div></li>
+<li><p><strong>데이터베이스 확인</strong></p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>SHOW DATABASES;</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- perfacto 데이터베이스가 있어야 함</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">USE</span> perfacto;</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- 테이블 확인 (아직 비어있음)</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>SHOW <span class="kw">TABLES</span>;</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">-- 연결 종료</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>EXIT;</span></code></pre></div></li>
+<li><p><strong>연결 실패 시</strong></p>
+<ul>
+<li>보안 그룹 규칙 재확인</li>
+<li>내 IP가 올바른지 확인</li>
+<li>엔드포인트 주소가 정확한지 확인</li>
+<li>비밀번호가 정확한지 확인</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="ec2-인스턴스-생성">3. EC2 인스턴스 생성</h2>
+<h3 id="ec2-콘솔-접속">3.1 EC2 콘솔 접속</h3>
+<ol type="1">
+<li><strong>EC2 서비스 검색</strong>
+<ul>
+<li>상단 검색창에 “EC2” 입력</li>
+<li>“EC2” 클릭</li>
+</ul></li>
+<li><strong>인스턴스 시작</strong>
+<ul>
+<li>“인스턴스 시작” 버튼 클릭</li>
+</ul></li>
+</ol>
+<h3 id="인스턴스-설정">3.2 인스턴스 설정</h3>
+<ol type="1">
+<li><p><strong>이름 및 태그</strong></p>
+<pre><code>이름: perfacto-server</code></pre></li>
+<li><p><strong>애플리케이션 및 OS 이미지 (AMI)</strong></p>
+<pre><code>빠른 시작: Ubuntu
+Amazon Machine Image (AMI): Ubuntu Server 22.04 LTS (HVM), SSD Volume Type
+아키텍처: 64비트 (x86)
+⚠️ &quot;프리 티어 사용 가능&quot; 표시 확인!</code></pre></li>
+<li><p><strong>인스턴스 유형</strong></p>
+<pre><code>인스턴스 유형: t2.micro
+⚠️ &quot;프리 티어 사용 가능&quot; 표시 확인!</code></pre></li>
+<li><p><strong>키 페어 (로그인)</strong></p>
+<ul>
+<li>“새 키 페어 생성” 클릭</li>
+</ul>
+<pre><code>키 페어 이름: perfacto-key
+키 페어 유형: RSA
+프라이빗 키 파일 형식: .pem (Mac/Linux용)</code></pre>
+<ul>
+<li>“키 페어 생성” 클릭</li>
+<li><strong><code>perfacto-key.pem</code> 파일 자동
+다운로드</strong></li>
+<li>⚠️ <strong>이 파일을 안전한 곳에 보관! 재다운로드
+불가!</strong></li>
+</ul>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 다운로드된 키를 안전한 위치로 이동</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> ~/Downloads/perfacto-key.pem ~/.ssh/</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 400 ~/.ssh/perfacto-key.pem</span></code></pre></div></li>
+<li><p><strong>네트워크 설정</strong></p>
+<ul>
+<li>“편집” 클릭</li>
+</ul>
+<pre><code>VPC: 기본 VPC
+서브넷: 기본값 (us-east-2a 등)
+퍼블릭 IP 자동 할당: 활성화 ✅</code></pre></li>
+<li><p><strong>방화벽 (보안 그룹)</strong></p>
+<ul>
+<li>“보안 그룹 생성” 선택</li>
+</ul>
+<pre><code>보안 그룹 이름: perfacto-server-sg
+설명: Security group for Perfacto server</code></pre>
+<ul>
+<li><strong>인바운드 보안 그룹 규칙</strong>:</li>
+</ul>
+<p><strong>규칙 1: SSH</strong></p>
+<pre><code>유형: SSH
+프로토콜: TCP
+포트 범위: 22
+소스 유형: 내 IP
+설명: SSH from my IP</code></pre>
+<p><strong>규칙 2: HTTP</strong></p>
+<ul>
+<li>“보안 그룹 규칙 추가” 클릭</li>
+</ul>
+<pre><code>유형: HTTP
+프로토콜: TCP
+포트 범위: 80
+소스 유형: 위치 무관 (0.0.0.0/0)
+설명: HTTP from anywhere</code></pre>
+<p><strong>규칙 3: HTTPS</strong></p>
+<ul>
+<li>“보안 그룹 규칙 추가” 클릭</li>
+</ul>
+<pre><code>유형: HTTPS
+프로토콜: TCP
+포트 범위: 443
+소스 유형: 위치 무관 (0.0.0.0/0)
+설명: HTTPS from anywhere</code></pre>
+<p><strong>규칙 4: Custom (Spring Boot - 임시)</strong></p>
+<ul>
+<li>“보안 그룹 규칙 추가” 클릭</li>
+</ul>
+<pre><code>유형: 사용자 지정 TCP
+프로토콜: TCP
+포트 범위: 8080
+소스 유형: 위치 무관 (0.0.0.0/0)
+설명: Spring Boot (temporary)</code></pre></li>
+<li><p><strong>스토리지 구성</strong></p>
+<pre><code>볼륨 1 (루트)
+크기: 30 GiB (프리 티어 최대)
+볼륨 유형: 범용 SSD (gp3)
+IOPS: 3000
+처리량: 125 MB/s
+종료 시 삭제: 예 (기본값)</code></pre></li>
+<li><p><strong>고급 세부 정보 (선택사항, 펼치기)</strong></p>
+<ul>
+<li>기본값 유지</li>
+</ul></li>
+</ol>
+<h3 id="인스턴스-시작">3.3 인스턴스 시작</h3>
+<ol type="1">
+<li><strong>요약 확인</strong>
+<ul>
+<li>우측 “요약” 패널에서 모든 설정 확인</li>
+<li>프리 티어 사용 가능 여부 확인</li>
+</ul></li>
+<li><strong>인스턴스 시작</strong>
+<ul>
+<li>“인스턴스 시작” 버튼 클릭</li>
+<li>성공 메시지 확인</li>
+<li>“모든 인스턴스 보기” 클릭</li>
+</ul></li>
+<li><strong>인스턴스 상태 확인</strong>
+<ul>
+<li>인스턴스 상태: “실행 중”이 될 때까지 대기 (약 1-2분)</li>
+<li>상태 검사: “2/2 검사 통과”가 될 때까지 대기 (약 2-3분)</li>
+</ul></li>
+</ol>
+<h3 id="elastic-ip-할당-선택사항-권장">3.4 Elastic IP 할당 (선택사항,
+권장)</h3>
+<p>고정 IP를 원하는 경우:</p>
+<ol type="1">
+<li><strong>Elastic IP 메뉴</strong>
+<ul>
+<li>좌측 메뉴 “네트워크 및 보안” → “탄력적 IP” 클릭</li>
+</ul></li>
+<li><strong>Elastic IP 주소 할당</strong>
+<ul>
+<li>“탄력적 IP 주소 할당” 버튼 클릭</li>
+<li>“할당” 버튼 클릭</li>
+</ul></li>
+<li><strong>인스턴스에 연결</strong>
+<ul>
+<li>할당된 IP 선택</li>
+<li>“작업” → “탄력적 IP 주소 연결” 클릭</li>
+<li>인스턴스: <code>perfacto-server</code> 선택</li>
+<li>“연결” 클릭</li>
+</ul></li>
+</ol>
+<p>⚠️ <strong>주의</strong>: Elastic IP는 인스턴스에 연결된 상태에서는
+무료이지만, 연결 해제 시 시간당 과금됩니다!</p>
+<h3 id="ssh-연결-테스트">3.5 SSH 연결 테스트</h3>
+<ol type="1">
+<li><p><strong>퍼블릭 IP 확인</strong></p>
+<ul>
+<li>인스턴스 선택</li>
+<li>“퍼블릭 IPv4 주소” 복사 (예: 13.125.XXX.XXX)</li>
+</ul></li>
+<li><p><strong>SSH 연결</strong></p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-i</span> ~/.ssh/perfacto-key.pem ubuntu@13.125.XXX.XXX</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 처음 연결 시 fingerprint 확인</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;yes&quot; 입력</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 성공하면 Ubuntu 환영 메시지 표시됨</span></span></code></pre></div></li>
+<li><p><strong>연결 확인</strong></p>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 시스템 정보 확인</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">uname</span> <span class="at">-a</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ubuntu 22.04 표시되어야 함</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 연결 종료 (나중에 다시 사용)</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span></code></pre></div></li>
+</ol>
+<hr />
+<h2 id="ec2-환경-설정">4. EC2 환경 설정</h2>
+<p>SSH로 EC2에 접속한 상태에서 진행:</p>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-i</span> ~/.ssh/perfacto-key.pem ubuntu@13.125.XXX.XXX</span></code></pre></div>
+<h3 id="시스템-업데이트">4.1 시스템 업데이트</h3>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 패키지 목록 업데이트</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 설치된 패키지 업그레이드</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt upgrade <span class="at">-y</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 재부팅 필요 시 (선택사항)</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># sudo reboot</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 1분 후 다시 SSH 접속</span></span></code></pre></div>
+<h3 id="jdk-17-설치">4.2 JDK 17 설치</h3>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># OpenJDK 17 설치</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install openjdk-17-jdk <span class="at">-y</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 설치 확인</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-version</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co"># openjdk version &quot;17.x.x&quot; 표시되어야 함</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="ex">javac</span> <span class="at">-version</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co"># javac 17.x.x 표시되어야 함</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co"># JAVA_HOME 환경 변수 설정</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&#39;export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64&#39;</span> <span class="op">&gt;&gt;</span> ~/.bashrc</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&#39;export PATH=$PATH:$JAVA_HOME/bin&#39;</span> <span class="op">&gt;&gt;</span> ~/.bashrc</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 확인</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$JAVA_HOME</span></span></code></pre></div>
+<h3 id="nginx-설치">4.3 Nginx 설치</h3>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nginx 설치</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install nginx <span class="at">-y</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Nginx 시작</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl start nginx</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 부팅 시 자동 시작 설정</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl enable nginx</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 상태 확인</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl status nginx</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;active (running)&quot; 표시되어야 함</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 웹 브라우저에서 확인</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="co"># http://13.125.XXX.XXX</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Nginx 기본 페이지가 표시되어야 함</span></span></code></pre></div>
+<h3 id="mysql-클라이언트-설치">4.4 MySQL 클라이언트 설치</h3>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MySQL 클라이언트 설치</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install mysql-client <span class="at">-y</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># RDS 연결 테스트</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql</span> <span class="at">-h</span> perfacto-db.xxxxxxxxx.ap-northeast-2.rds.amazonaws.com <span class="at">-u</span> admin <span class="at">-p</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 비밀번호 입력</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 성공하면 mysql&gt; 프롬프트 표시</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터베이스 확인</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="ex">SHOW</span> DATABASES<span class="kw">;</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 종료</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="ex">EXIT</span><span class="kw">;</span></span></code></pre></div>
+<h3 id="작업-디렉토리-생성">4.5 작업 디렉토리 생성</h3>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 애플리케이션 디렉토리 생성</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/perfacto</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/perfacto</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 로그 디렉토리 생성</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mkdir <span class="at">-p</span> /var/log/perfacto</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chown ubuntu:ubuntu /var/log/perfacto</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 확인</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="co"># /home/ubuntu/perfacto 표시되어야 함</span></span></code></pre></div>
+<hr />
+<h2 id="spring-boot-애플리케이션-배포">5. Spring Boot 애플리케이션
+배포</h2>
+<h3 id="로컬에서-jar-파일-빌드">5.1 로컬에서 JAR 파일 빌드</h3>
+<p><strong>로컬 Mac에서 실행</strong> (새 터미널 창):</p>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 프로젝트 디렉토리로 이동</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /Users/mac/spring_boot_proj/perfacto_server</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 이전 빌드 정리</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./gradlew</span> clean</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># JAR 빌드</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="ex">./gradlew</span> bootJar</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 빌드 확인</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> build/libs/app.jar</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 파일 크기 표시되어야 함 (약 50-100MB)</span></span></code></pre></div>
+<h3 id="프로덕션-설정-파일-생성">5.2 프로덕션 설정 파일 생성</h3>
+<p><strong>로컬에서</strong>:</p>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /Users/mac/spring_boot_proj/perfacto_server</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> application-prod.yml</span></code></pre></div>
+<p>다음 내용 입력:</p>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">spring</span><span class="kw">:</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">datasource</span><span class="kw">:</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">driver-class-name</span><span class="kw">:</span><span class="at"> com.mysql.cj.jdbc.Driver</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">url</span><span class="kw">:</span><span class="at"> jdbc:mysql://perfacto-db.xxxxxxxxx.ap-northeast-2.rds.amazonaws.com:3306/perfacto</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">username</span><span class="kw">:</span><span class="at"> admin</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">password</span><span class="kw">:</span><span class="at"> YOUR_RDS_PASSWORD_HERE</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">hikari</span><span class="kw">:</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">maximum-pool-size</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">idle-timeout</span><span class="kw">:</span><span class="at"> </span><span class="dv">600000</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">max-lifetime</span><span class="kw">:</span><span class="at"> </span><span class="dv">600000</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">connection-timeout</span><span class="kw">:</span><span class="at"> </span><span class="dv">30000</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">jpa</span><span class="kw">:</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">hibernate</span><span class="kw">:</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">ddl-auto</span><span class="kw">:</span><span class="at"> update</span><span class="co">  # 최초 배포 시 update, 이후 validate</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">properties</span><span class="kw">:</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">hibernate</span><span class="kw">:</span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">format_sql</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">show-sql</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">data</span><span class="kw">:</span></span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">web</span><span class="kw">:</span></span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">pageable</span><span class="kw">:</span></span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">max-page-size</span><span class="kw">:</span><span class="at"> </span><span class="dv">2000</span></span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a><span class="fu">logging</span><span class="kw">:</span></span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">level</span><span class="kw">:</span></span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">root</span><span class="kw">:</span><span class="at"> INFO</span></span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">org.example.scrd</span><span class="kw">:</span><span class="at"> INFO</span></span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">file</span><span class="kw">:</span></span>
+<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> /var/log/perfacto/application.log</span></span>
+<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">max-size</span><span class="kw">:</span><span class="at"> 10MB</span></span>
+<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">max-history</span><span class="kw">:</span><span class="at"> </span><span class="dv">30</span></span>
+<span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-35"><a href="#cb34-35" aria-hidden="true" tabindex="-1"></a><span class="fu">custom</span><span class="kw">:</span></span>
+<span id="cb34-36"><a href="#cb34-36" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">host</span><span class="kw">:</span></span>
+<span id="cb34-37"><a href="#cb34-37" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">client</span><span class="kw">:</span><span class="at"> http://13.125.XXX.XXX,https://perfacto-7aa56.web.app,https://your-domain.com</span></span>
+<span id="cb34-38"><a href="#cb34-38" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">jwt</span><span class="kw">:</span></span>
+<span id="cb34-39"><a href="#cb34-39" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">secret</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;${JWT_SECRET:gjITbPwjXp3ZvUfcGx+sxaeB3Mdxcbfur9ZGZkmwgQs=}&quot;</span></span>
+<span id="cb34-40"><a href="#cb34-40" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">expire-time-ms</span><span class="kw">:</span><span class="at"> </span><span class="dv">7200000000</span></span>
+<span id="cb34-41"><a href="#cb34-41" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">refresh-expire-time-ms</span><span class="kw">:</span><span class="at"> </span><span class="dv">7200000000</span></span>
+<span id="cb34-42"><a href="#cb34-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-43"><a href="#cb34-43" aria-hidden="true" tabindex="-1"></a><span class="fu">kakao</span><span class="kw">:</span></span>
+<span id="cb34-44"><a href="#cb34-44" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">api</span><span class="kw">:</span></span>
+<span id="cb34-45"><a href="#cb34-45" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">key</span><span class="kw">:</span></span>
+<span id="cb34-46"><a href="#cb34-46" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">client</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;6b4d8cc48ec73499504d519e26c84c91&quot;</span></span>
+<span id="cb34-47"><a href="#cb34-47" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">auth-url</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;https://kauth.kakao.com/oauth/authorize&quot;</span></span>
+<span id="cb34-48"><a href="#cb34-48" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">redirect-uri</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;http://13.125.XXX.XXX/perfacto/auth/kakao-login&quot;</span></span>
+<span id="cb34-49"><a href="#cb34-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-50"><a href="#cb34-50" aria-hidden="true" tabindex="-1"></a><span class="fu">file</span><span class="kw">:</span></span>
+<span id="cb34-51"><a href="#cb34-51" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">upload</span><span class="kw">:</span></span>
+<span id="cb34-52"><a href="#cb34-52" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">path</span><span class="kw">:</span><span class="at"> /home/ubuntu/perfacto/uploads</span></span>
+<span id="cb34-53"><a href="#cb34-53" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">url-prefix</span><span class="kw">:</span><span class="at"> /files</span></span></code></pre></div>
+<p><strong>⚠️ 수정 필요 항목</strong>: 1. RDS 엔드포인트 주소 2. RDS
+비밀번호 3. EC2 퍼블릭 IP (13.125.XXX.XXX)</p>
+<p>저장: <code>Ctrl+O</code>, Enter, <code>Ctrl+X</code></p>
+<h3 id="파일을-ec2로-전송">5.3 파일을 EC2로 전송</h3>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># JAR 파일 전송</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="at">-i</span> ~/.ssh/perfacto-key.pem <span class="dt">\</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  build/libs/app.jar <span class="dt">\</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  ubuntu@13.125.XXX.XXX:~/perfacto/</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 설정 파일 전송</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="at">-i</span> ~/.ssh/perfacto-key.pem <span class="dt">\</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  application-prod.yml <span class="dt">\</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  ubuntu@13.125.XXX.XXX:~/perfacto/</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 전송 확인 (EC2에서)</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-i</span> ~/.ssh/perfacto-key.pem ubuntu@13.125.XXX.XXX</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/perfacto</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="co"># app.jar, application-prod.yml 확인</span></span></code></pre></div>
+<h3 id="업로드-디렉토리-생성">5.4 업로드 디렉토리 생성</h3>
+<p><strong>EC2에서</strong>:</p>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 업로드 디렉토리 생성</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/perfacto/uploads</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 755 ~/perfacto/uploads</span></code></pre></div>
+<h3 id="환경-변수-설정">5.5 환경 변수 설정</h3>
+<p><strong>EC2에서</strong>:</p>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># .bashrc 파일 편집</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> ~/.bashrc</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 파일 맨 아래에 추가:</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">JWT_SECRET</span><span class="op">=</span><span class="st">&quot;gjITbPwjXp3ZvUfcGx+sxaeB3Mdxcbfur9ZGZkmwgQs=&quot;</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">DB_PASSWORD</span><span class="op">=</span><span class="st">&quot;YOUR_RDS_PASSWORD&quot;</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 저장: Ctrl+O, Enter, Ctrl+X</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 환경 변수 적용</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 확인</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$JWT_SECRET</span></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$DB_PASSWORD</span></span></code></pre></div>
+<h3 id="애플리케이션-실행-테스트">5.6 애플리케이션 실행 테스트</h3>
+<p><strong>EC2에서</strong>:</p>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/perfacto</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 애플리케이션 실행</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="at">-Dspring.profiles.active</span><span class="op">=</span>prod app.jar</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Spring Boot 로그 확인</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;Started ScrdApplication in X.XXX seconds&quot; 메시지 확인</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 브라우저에서 테스트 (새 터미널에서):</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://13.125.XXX.XXX:8080/perfacto/every/categories</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="co"># JSON 응답 확인되면 성공!</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 애플리케이션 중지: Ctrl+C</span></span></code></pre></div>
+<h3 id="systemd-서비스-등록">5.7 Systemd 서비스 등록</h3>
+<p><strong>EC2에서</strong>:</p>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 서비스 파일 생성</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> nano /etc/systemd/system/perfacto.service</span></code></pre></div>
+<p>다음 내용 입력:</p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode ini"><code class="sourceCode ini"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[Unit]</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Description</span><span class="ot">=</span><span class="st">Perfacto Spring Boot Application</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="dt">After</span><span class="ot">=</span><span class="st">syslog.target network.target</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="kw">[Service]</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="dt">User</span><span class="ot">=</span><span class="st">ubuntu</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="dt">WorkingDirectory</span><span class="ot">=</span><span class="st">/home/ubuntu/perfacto</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="dt">ExecStart</span><span class="ot">=</span><span class="st">/usr/bin/java -jar -Dspring.profiles.active=prod -Dspring.config.location=file:/home/ubuntu/perfacto/application-prod.yml /home/ubuntu/perfacto/app.jar</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="dt">SuccessExitStatus</span><span class="ot">=</span><span class="dv">143</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="dt">Restart</span><span class="ot">=</span><span class="st">always</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="dt">RestartSec</span><span class="ot">=</span><span class="dv">10</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="dt">Environment</span><span class="ot">=</span><span class="st">&quot;JWT_SECRET=gjITbPwjXp3ZvUfcGx+sxaeB3Mdxcbfur9ZGZkmwgQs=&quot;</span></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="dt">Environment</span><span class="ot">=</span><span class="st">&quot;DB_PASSWORD=YOUR_RDS_PASSWORD&quot;</span></span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="dt">StandardOutput</span><span class="ot">=</span><span class="st">journal</span></span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a><span class="dt">StandardError</span><span class="ot">=</span><span class="st">journal</span></span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a><span class="dt">SyslogIdentifier</span><span class="ot">=</span><span class="st">perfacto</span></span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a><span class="kw">[Install]</span></span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a><span class="dt">WantedBy</span><span class="ot">=</span><span class="st">multi-user.target</span></span></code></pre></div>
+<p><strong>⚠️ DB_PASSWORD를 실제 RDS 비밀번호로 변경!</strong></p>
+<p>저장: <code>Ctrl+O</code>, Enter, <code>Ctrl+X</code></p>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Systemd 데몬 리로드</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl daemon-reload</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 서비스 시작</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl start perfacto</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 서비스 상태 확인</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl status perfacto</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;active (running)&quot; 확인</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 부팅 시 자동 시작 설정</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl enable perfacto</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 로그 확인</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> journalctl <span class="at">-u</span> perfacto <span class="at">-f</span></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Ctrl+C로 종료</span></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 테스트</span></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:8080/perfacto/every/categories</span></code></pre></div>
+<hr />
+<h2 id="nginx-및-보안-설정">6. Nginx 및 보안 설정</h2>
+<h3 id="nginx-리버스-프록시-설정">6.1 Nginx 리버스 프록시 설정</h3>
+<p><strong>EC2에서</strong>:</p>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nginx 설정 파일 생성</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> nano /etc/nginx/sites-available/perfacto</span></code></pre></div>
+<p>다음 내용 입력:</p>
+<pre class="nginx"><code>server {
+    listen 80;
+    server_name 13.125.XXX.XXX;  # EC2 퍼블릭 IP 또는 도메인
+
+    client_max_body_size 10M;
+
+    location / {
+        proxy_pass http://localhost:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # Timeout 설정
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+    }
+
+    # 정적 파일 (업로드된 이미지)
+    location /files/ {
+        alias /home/ubuntu/perfacto/uploads/;
+        expires 30d;
+        add_header Cache-Control &quot;public, immutable&quot;;
+    }
+}</code></pre>
+<p><strong>⚠️ server_name을 EC2 IP로 변경!</strong></p>
+<p>저장: <code>Ctrl+O</code>, Enter, <code>Ctrl+X</code></p>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 심볼릭 링크 생성</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ln <span class="at">-s</span> /etc/nginx/sites-available/perfacto /etc/nginx/sites-enabled/</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 기본 사이트 비활성화</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> rm /etc/nginx/sites-enabled/default</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Nginx 설정 테스트</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> nginx <span class="at">-t</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;syntax is okay&quot;, &quot;test is successful&quot; 확인</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Nginx 재시작</span></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl restart nginx</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 상태 확인</span></span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl status nginx</span></code></pre></div>
+<h3 id="방화벽-설정-ufw">6.2 방화벽 설정 (UFW)</h3>
+<p><strong>EC2에서</strong>:</p>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># UFW 활성화</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ufw allow 22/tcp comment <span class="st">&#39;SSH&#39;</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ufw allow 80/tcp comment <span class="st">&#39;HTTP&#39;</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ufw allow 443/tcp comment <span class="st">&#39;HTTPS&#39;</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="co"># UFW 상태 확인 (아직 활성화 안 함)</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ufw status</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="co"># UFW 활성화</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ufw enable</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;y&quot; 입력</span></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 확인</span></span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ufw status verbose</span></code></pre></div>
+<h3 id="ec2-보안-그룹-업데이트">6.3 EC2 보안 그룹 업데이트</h3>
+<p><strong>AWS 콘솔에서</strong>:</p>
+<ol type="1">
+<li>EC2 → 인스턴스 → perfacto-server 선택</li>
+<li>“보안” 탭 → 보안 그룹 클릭</li>
+<li>“인바운드 규칙” → “인바운드 규칙 편집”</li>
+<li><strong>8080 포트 규칙 삭제</strong> (Nginx를 통해서만 접근)</li>
+<li>“규칙 저장”</li>
+</ol>
+<h3 id="rds-보안-그룹-업데이트">6.4 RDS 보안 그룹 업데이트</h3>
+<p><strong>AWS 콘솔에서</strong>:</p>
+<ol type="1">
+<li><p>RDS → perfacto-db 선택</p></li>
+<li><p>“연결 &amp; 보안” → VPC 보안 그룹 클릭</p></li>
+<li><p>“인바운드 규칙” → “인바운드 규칙 편집”</p></li>
+<li><p>기존 “내 IP” 규칙 외에 추가:</p>
+<pre><code>유형: MySQL/Aurora
+소스: perfacto-server-sg (EC2 보안 그룹)
+설명: From EC2 instance</code></pre></li>
+<li><p>“규칙 저장”</p></li>
+</ol>
+<hr />
+<h2 id="테스트-및-검증">7. 테스트 및 검증</h2>
+<h3 id="api-테스트">7.1 API 테스트</h3>
+<p><strong>로컬에서</strong>:</p>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 카테고리 조회 (인증 불필요)</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://13.125.XXX.XXX/perfacto/every/categories</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 예상 응답:</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="kw">{</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;success&quot;</span><span class="ex">:</span> true,</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;data&quot;</span><span class="ex">:</span> [</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">{</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;id&quot;</span><span class="ex">:</span> 1,</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;code&quot;</span><span class="ex">:</span> <span class="st">&quot;restaurant&quot;</span>,</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;name&quot;</span><span class="ex">:</span> <span class="st">&quot;음식점&quot;</span>,</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>      <span class="ex">...</span></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">}</span></span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>  <span class="ex">]</span></span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div>
+<h3 id="소셜-로그인-테스트">7.2 소셜 로그인 테스트</h3>
+<p><strong>브라우저에서</strong>:</p>
+<pre><code># 카카오 로그인 URL (실제로는 카카오 앱에서 처리됨)
+http://13.125.XXX.XXX/perfacto/auth/kakao-login?code=AUTHORIZATION_CODE</code></pre>
+<h3 id="데이터베이스-테이블-확인">7.3 데이터베이스 테이블 확인</h3>
+<p><strong>로컬 또는 EC2에서</strong>:</p>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql</span> <span class="at">-h</span> perfacto-db.xxxxxxxxx.ap-northeast-2.rds.amazonaws.com <span class="at">-u</span> admin <span class="at">-p</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="ex">USE</span> perfacto<span class="kw">;</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="ex">SHOW</span> TABLES<span class="kw">;</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="co"># categories, places, users, likes 등 테이블 확인</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="ex">SELECT</span> <span class="pp">*</span> FROM categories<span class="kw">;</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 4개 카테고리 확인</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a><span class="ex">EXIT</span><span class="kw">;</span></span></code></pre></div>
+<h3 id="로그-확인">7.4 로그 확인</h3>
+<p><strong>EC2에서</strong>:</p>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 서비스 로그</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> journalctl <span class="at">-u</span> perfacto <span class="at">-n</span> 100</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 애플리케이션 로그</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-f</span> /var/log/perfacto/application.log</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Nginx 액세스 로그</span></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> tail <span class="at">-f</span> /var/log/nginx/access.log</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Nginx 에러 로그</span></span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> tail <span class="at">-f</span> /var/log/nginx/error.log</span></code></pre></div>
+<hr />
+<h2 id="다음-단계">8. 다음 단계</h2>
+<h3 id="flutter-앱-연동">8.1 Flutter 앱 연동</h3>
+<p><code>lib/services/api_service.dart</code>:</p>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ApiConfig <span class="op">{</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">static</span> <span class="at">const</span> <span class="dt">String</span> baseUrl <span class="op">=</span> <span class="st">&#39;http://13.125.XXX.XXX&#39;</span>;</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 또는 도메인 연결 후</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">// static const String baseUrl = &#39;https://api.perfacto.com&#39;;</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="도메인-및-https-설정-선택사항">8.2 도메인 및 HTTPS 설정
+(선택사항)</h3>
+<ol type="1">
+<li>도메인 구매</li>
+<li>Route 53 설정</li>
+<li>Let’s Encrypt SSL 인증서 발급</li>
+<li>Nginx HTTPS 설정</li>
+</ol>
+<h3 id="모니터링-설정">8.3 모니터링 설정</h3>
+<ol type="1">
+<li>CloudWatch 메트릭 확인</li>
+<li>알람 설정</li>
+<li>로그 수집 자동화</li>
+</ol>
+<hr />
+<h2 id="free-tier-사용량-체크">📊 Free Tier 사용량 체크</h2>
+<h3 id="aws-콘솔에서-확인">AWS 콘솔에서 확인</h3>
+<ol type="1">
+<li><p><strong>결제 대시보드</strong></p>
+<ul>
+<li>우측 상단 계정명 → “결제 및 비용 관리”</li>
+<li>“Free Tier” 메뉴</li>
+<li>현재 사용량 확인</li>
+</ul></li>
+<li><p><strong>주요 확인 항목</strong></p>
+<pre><code>EC2 t2.micro: 750시간/월 (31일 = 744시간)
+RDS db.t3.micro: 750시간/월
+스토리지: 30GB (EC2 + RDS)
+데이터 전송: 15GB 아웃바운드/월</code></pre></li>
+<li><p><strong>비용 알림 설정 확인</strong></p>
+<ul>
+<li>“예산” 메뉴</li>
+<li>알림 이메일 수신 확인</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="문제-해결">🔧 문제 해결</h2>
+<h3 id="rds-연결-실패">RDS 연결 실패</h3>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 보안 그룹 확인</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 내 IP가 허용되었는지 확인</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="co"># EC2 보안 그룹이 허용되었는지 확인</span></span></code></pre></div>
+<h3 id="ec2-ssh-연결-실패">EC2 SSH 연결 실패</h3>
+<div class="sourceCode" id="cb54"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 키 권한 확인</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 400 ~/.ssh/perfacto-key.pem</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 보안 그룹 SSH 규칙 확인</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 22 포트가 내 IP에 열려있는지 확인</span></span></code></pre></div>
+<h3 id="애플리케이션-실행-오류">애플리케이션 실행 오류</h3>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 로그 확인</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> journalctl <span class="at">-u</span> perfacto <span class="at">-n</span> 100</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터베이스 연결 확인</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql</span> <span class="at">-h</span> RDS_ENDPOINT <span class="at">-u</span> admin <span class="at">-p</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 포트 확인</span></span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> netstat <span class="at">-tlnp</span> <span class="kw">|</span> <span class="fu">grep</span> 8080</span></code></pre></div>
+<h3 id="nginx-502-bad-gateway">Nginx 502 Bad Gateway</h3>
+<div class="sourceCode" id="cb56"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spring Boot 서비스 상태 확인</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl status perfacto</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 로그 확인</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> journalctl <span class="at">-u</span> perfacto <span class="at">-f</span></span></code></pre></div>
+<hr />
+<h2 id="완료-체크리스트">✅ 완료 체크리스트</h2>
+<ul class="task-list">
+<li><label><input type="checkbox" />AWS 계정 생성</label></li>
+<li><label><input type="checkbox" />IAM 사용자 생성</label></li>
+<li><label><input type="checkbox" />서울 리전 선택</label></li>
+<li><label><input type="checkbox" />RDS MySQL 생성</label></li>
+<li><label><input type="checkbox" />RDS 보안 그룹 설정</label></li>
+<li><label><input type="checkbox" />RDS 연결 테스트</label></li>
+<li><label><input type="checkbox" />EC2 인스턴스 생성</label></li>
+<li><label><input type="checkbox" />키 페어 다운로드 및
+저장</label></li>
+<li><label><input type="checkbox" />EC2 SSH 접속</label></li>
+<li><label><input type="checkbox" />JDK 17 설치</label></li>
+<li><label><input type="checkbox" />Nginx 설치</label></li>
+<li><label><input type="checkbox" />Spring Boot JAR 빌드</label></li>
+<li><label><input type="checkbox" />프로덕션 설정 파일 생성</label></li>
+<li><label><input type="checkbox" />JAR 파일 EC2 전송</label></li>
+<li><label><input type="checkbox" />Systemd 서비스 등록</label></li>
+<li><label><input type="checkbox" />Nginx 리버스 프록시
+설정</label></li>
+<li><label><input type="checkbox" />방화벽 설정</label></li>
+<li><label><input type="checkbox" />API 테스트 성공</label></li>
+<li><label><input type="checkbox" />데이터베이스 테이블
+확인</label></li>
+</ul>
+<hr />
+<p><strong>축하합니다! AWS 프로덕션 배포 완료!</strong> 🎉</p>
+</body>
+</html>

@@ -12,6 +12,7 @@ public class UserDto {
     private Long id;
     private Long kakaoId;
     private String appleId;
+    private String naverId;
     private String name;
     private String nickName;
     private String email;
@@ -26,7 +27,8 @@ public class UserDto {
         return UserDto.builder()
                 .id(user.getId())
                 .kakaoId(user.getKakaoId())
-                .appleId(user.getAppleId())  // Apple ID도 포함
+                .appleId(user.getAppleId())
+                .naverId(user.getNaverId())
                 .nickName(user.getNickName())
                 .email(user.getEmail())
                 .profileImageUrl(user.getProfileImageUrl())

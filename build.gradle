@@ -10,7 +10,7 @@ bootJar {
 }
 
 
-group = 'org.example'
+group = 'com.perfacto'
 version = '0.0.1-SNAPSHOT'
 
 def querydslDir = "src/main/generated"

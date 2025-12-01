@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Perfacto Guide</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Perfacto Guide</h1>
+</header>
+<h1 id="perfacto-프로젝트-wbs-work-breakdown-structure">Perfacto
+프로젝트 WBS (Work Breakdown Structure)</h1>
+<blockquote>
+<p>이 문서를 Notion에 복사-붙여넣기하세요. Notion에서 Markdown import를
+지원합니다.</p>
+</blockquote>
+<hr />
+<h2 id="프로젝트-개요">📋 프로젝트 개요</h2>
+<p><strong>프로젝트명</strong>: Perfacto (포항 지도 앱)
+<strong>목표</strong>: Spring Boot 백엔드 서버 배포 및 Flutter 앱 연동
+<strong>기간</strong>: 약 2-3주 <strong>배포 환경</strong>: AWS Free
+Tier → 유료 전환</p>
+<hr />
+<h2 id="phase-1-서버-실행-및-테스트-1-2일">🎯 Phase 1: 서버 실행 및
+테스트 (1-2일)</h2>
+<h3 id="로컬-환경-설정">1.1 로컬 환경 설정</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />MySQL 8.0 설치 확인</label></li>
+<li><label><input type="checkbox" />JDK 17 설치 확인</label></li>
+<li><label><input type="checkbox" />IntelliJ IDEA 또는 VSCode
+설정</label></li>
+</ul>
+<h3 id="데이터베이스-설정">1.2 데이터베이스 설정</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />MySQL 서버 실행</label></li>
+<li><label><input type="checkbox" /><code>perfacto</code> 데이터베이스
+생성</label></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">DATABASE</span> perfacto <span class="dt">CHARACTER</span> <span class="kw">SET</span> utf8mb4 COLLATE utf8mb4_unicode_ci;</span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />사용자 생성 및 권한 부여
+(선택사항)</label></li>
+<li><label><input type="checkbox" /><code>application.yml</code> 파일에
+DB 접속 정보 입력</label>
+<ul>
+<li>username</li>
+<li>password</li>
+<li>url</li>
+</ul></li>
+</ul>
+<h3 id="서버-빌드-및-실행">1.3 서버 빌드 및 실행</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />프로젝트 디렉토리 이동</label></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /Users/mac/spring_boot_proj/perfacto_server</span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />Gradle 빌드 실행</label></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./gradlew</span> clean build</span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />서버 실행</label></li>
+</ul>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./gradlew</span> bootRun</span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />서버 정상 실행 확인
+(localhost:8080)</label></li>
+</ul>
+<h3 id="기본-api-테스트">1.4 기본 API 테스트</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Postman 또는 cURL 설치</label></li>
+<li><label><input type="checkbox" />카테고리 조회 테스트</label></li>
+</ul>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:8080/perfacto/every/categories</span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />응답 확인 (4개 카테고리 자동 생성
+확인)</label>
+<ul>
+<li>restaurant (음식점)</li>
+<li>accommodation (숙박)</li>
+<li>cafe (카페)</li>
+<li>attraction (관광지)</li>
+</ul></li>
+</ul>
+<h3 id="테스트-데이터-생성">1.5 테스트 데이터 생성</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Postman Collection 생성</label></li>
+<li><label><input type="checkbox" />소셜 로그인 테스트
+(카카오)</label></li>
+<li><label><input type="checkbox" />장소 생성 API 테스트</label></li>
+<li><label><input type="checkbox" />좋아요/북마크 테스트</label></li>
+<li><label><input type="checkbox" />리뷰 작성 테스트</label></li>
+<li><label><input type="checkbox" />이미지 업로드 테스트</label></li>
+</ul>
+<p><strong>산출물</strong>: - ✅ 로컬에서 실행되는 백엔드 서버 - ✅
+Postman API 테스트 컬렉션 - ✅ 테스트 데이터 (장소 5-10개)</p>
+<hr />
+<h2 id="phase-2-소셜-로그인-키-발급-및-연결-1-2일">🔑 Phase 2: 소셜
+로그인 키 발급 및 연결 (1-2일)</h2>
+<h3 id="카카오-로그인-설정">2.1 카카오 로그인 설정</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" /><a
+href="https://developers.kakao.com">Kakao Developers</a>
+접속</label></li>
+<li><label><input type="checkbox" />카카오 계정으로 로그인</label></li>
+<li><label><input type="checkbox" />새 애플리케이션 생성</label>
+<ul>
+<li>앱 이름: Perfacto</li>
+<li>사업자명: (본인 이름 또는 회사명)</li>
+</ul></li>
+<li><label><input type="checkbox" />REST API 키 복사</label></li>
+<li><label><input type="checkbox" />플랫폼 설정</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />Android 추가</label>
+<ul>
+<li>패키지명: <code>com.perfacto.app</code> (Flutter 앱의 패키지명)</li>
+<li>키 해시 등록</li>
+</ul></li>
+<li><label><input type="checkbox" />iOS 추가</label>
+<ul>
+<li>Bundle ID: <code>com.perfacto.app</code></li>
+</ul></li>
+</ul></li>
+<li><label><input type="checkbox" />Redirect URI 설정</label>
+<ul>
+<li>개발:
+<code>http://localhost:8080/perfacto/auth/kakao-login</code></li>
+<li>프로덕션:
+<code>https://api.perfacto.com/perfacto/auth/kakao-login</code></li>
+</ul></li>
+<li><label><input type="checkbox" />동의 항목 설정</label>
+<ul>
+<li>닉네임 (필수)</li>
+<li>프로필 사진 (선택)</li>
+<li>카카오계정 (이메일) (선택)</li>
+</ul></li>
+<li><label><input type="checkbox" /><code>application.yml</code>에 REST
+API 키 입력</label></li>
+</ul>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kakao</span><span class="kw">:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">api</span><span class="kw">:</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">key</span><span class="kw">:</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">client</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;발급받은_REST_API_KEY&quot;</span></span></code></pre></div>
+<p><strong>참고 문서</strong>: Flutter 앱에서 키 해시 생성 방법</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Android Debug Key Hash</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">keytool</span> <span class="at">-exportcert</span> <span class="at">-alias</span> androiddebugkey <span class="at">-keystore</span> ~/.android/debug.keystore <span class="kw">|</span> <span class="ex">openssl</span> sha1 <span class="at">-binary</span> <span class="kw">|</span> <span class="ex">openssl</span> base64</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># iOS는 Bundle ID만 등록</span></span></code></pre></div>
+<h3 id="네이버-로그인-설정-선택사항">2.2 네이버 로그인 설정
+(선택사항)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" /><a
+href="https://developers.naver.com">네이버 개발자센터</a>
+접속</label></li>
+<li><label><input type="checkbox" />네이버 계정으로 로그인</label></li>
+<li><label><input type="checkbox" />애플리케이션 등록</label>
+<ul>
+<li>애플리케이션 이름: Perfacto</li>
+<li>사용 API: 네이버 로그인</li>
+</ul></li>
+<li><label><input type="checkbox" />Client ID, Client Secret
+복사</label></li>
+<li><label><input type="checkbox" />서비스 환경 추가</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />Android 앱 패키지명:
+<code>com.perfacto.app</code></label></li>
+<li><label><input type="checkbox" />iOS URL Scheme:
+<code>perfacto</code></label></li>
+</ul></li>
+<li><label><input type="checkbox" />Callback URL 설정</label>
+<ul>
+<li>개발:
+<code>http://localhost:8080/perfacto/auth/naver-login</code></li>
+<li>프로덕션:
+<code>https://api.perfacto.com/perfacto/auth/naver-login</code></li>
+</ul></li>
+<li><label><input type="checkbox" />제공 정보 선택</label>
+<ul>
+<li>이름 (필수)</li>
+<li>프로필 사진 (선택)</li>
+<li>이메일 (선택)</li>
+</ul></li>
+<li><label><input type="checkbox" /><code>application.yml</code>에
+Client ID, Secret 입력</label></li>
+</ul>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">naver</span><span class="kw">:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">api</span><span class="kw">:</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">key</span><span class="kw">:</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">client</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;발급받은_CLIENT_ID&quot;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">secret</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;발급받은_CLIENT_SECRET&quot;</span></span></code></pre></div>
+<h3 id="apple-로그인-설정-선택사항-ios-필수">2.3 Apple 로그인 설정
+(선택사항, iOS 필수)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" /><a
+href="https://developer.apple.com">Apple Developer</a> 접속</label></li>
+<li><label><input type="checkbox" />Apple Developer Program 가입 (연
+$99)</label></li>
+<li><label><input type="checkbox" />Certificates, Identifiers &amp;
+Profiles 이동</label></li>
+<li><label><input type="checkbox" />Identifiers 생성</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />App IDs 생성</label>
+<ul>
+<li>Bundle ID: <code>com.perfacto.app</code></li>
+<li>Sign in with Apple 활성화</li>
+</ul></li>
+<li><label><input type="checkbox" />Services IDs 생성</label>
+<ul>
+<li>Identifier: <code>com.perfacto.app.signin</code></li>
+<li>Return URLs:
+<code>https://api.perfacto.com/perfacto/auth/apple-login</code></li>
+</ul></li>
+</ul></li>
+<li><label><input type="checkbox" />Keys 생성</label>
+<ul>
+<li><label><input type="checkbox" />Sign in with Apple 키
+생성</label></li>
+<li>Key ID 복사</li>
+<li>.p8 파일 다운로드</li>
+</ul></li>
+<li><label><input type="checkbox" />Team ID 확인</label>
+<ul>
+<li>Membership 페이지에서 확인</li>
+</ul></li>
+<li><label><input type="checkbox" />서버에 설정</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />.p8 파일을
+<code>src/main/resources/keys/</code> 폴더에 복사</label></li>
+<li><label><input type="checkbox" /><code>application.yml</code>에 설정
+입력</label></li>
+</ul>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apple</span><span class="kw">:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">api</span><span class="kw">:</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">key</span><span class="kw">:</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">team-id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;YOUR_TEAM_ID&quot;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">key-id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;YOUR_KEY_ID&quot;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">client-id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;com.perfacto.app.signin&quot;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;/keys/AuthKey.p8&quot;</span></span></code></pre></div></li>
+</ul>
+<h3 id="통합-테스트">2.4 통합 테스트</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />카카오 로그인 테스트</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />웹 브라우저에서 인가 코드
+받기</label></li>
+<li><label><input type="checkbox" />Postman으로 로그인 API
+호출</label></li>
+<li><label><input type="checkbox" />Access Token 및 사용자 정보
+확인</label></li>
+</ul></li>
+<li><label><input type="checkbox" />네이버 로그인 테스트
+(선택)</label></li>
+<li><label><input type="checkbox" />Apple 로그인 테스트 (선택, iOS에서만
+가능)</label></li>
+</ul>
+<p><strong>산출물</strong>: - ✅ 카카오 REST API 키 - ✅ 네이버 Client
+ID/Secret (선택) - ✅ Apple 인증 파일 및 설정 (선택) - ✅ 업데이트된
+<code>application.yml</code> - ✅ 소셜 로그인 테스트 성공</p>
+<hr />
+<h2 id="phase-3-flutter-앱-연동-3-5일">📱 Phase 3: Flutter 앱 연동
+(3-5일)</h2>
+<h3 id="프로젝트-구조-결정">3.1 프로젝트 구조 결정</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Firebase 사용 결정</label>
+<ul class="task-list">
+<li><label><input type="checkbox" /><strong>옵션 A</strong>: Firebase
+완전 제거 (Spring Boot만 사용)</label></li>
+<li><label><input type="checkbox" /><strong>옵션 B</strong>: Firebase
+병행 사용 (푸시 알림, Analytics 등)</label></li>
+</ul></li>
+<li><label><input type="checkbox" />API Base URL 설정</label>
+<ul>
+<li>개발: <code>http://localhost:8080</code></li>
+<li>프로덕션: <code>https://api.perfacto.com</code></li>
+</ul></li>
+</ul>
+<h3 id="flutter-패키지-설정">3.2 Flutter 패키지 설정</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" /><code>pubspec.yaml</code>
+업데이트</label></li>
+</ul>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dependencies</span><span class="kw">:</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">http</span><span class="kw">:</span><span class="at"> ^1.1.0</span><span class="co">  # REST API 호출</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">flutter_secure_storage</span><span class="kw">:</span><span class="at"> ^9.0.0</span><span class="co">  # JWT 토큰 저장</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">provider</span><span class="kw">:</span><span class="at"> ^6.1.1</span><span class="co">  # 상태 관리</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">  # Firebase 제거 시 삭제</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">  # firebase_core: ^2.x.x</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">  # cloud_firestore: ^4.x.x</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">  # firebase_auth: ^4.x.x</span></span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" /><code>flutter pub get</code>
+실행</label></li>
+</ul>
+<h3 id="api-클라이언트-구현">3.3 API 클라이언트 구현</h3>
+<ul class="task-list">
+<li><label><input
+type="checkbox" /><code>lib/services/api_service.dart</code>
+생성</label></li>
+</ul>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ApiService <span class="op">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">static</span> <span class="at">const</span> <span class="dt">String</span> baseUrl <span class="op">=</span> <span class="st">&#39;http://localhost:8080&#39;</span>;</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span><span class="op">?</span> accessToken;</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 헤더 설정</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Map</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> <span class="dt">String</span><span class="op">&gt;</span> <span class="kw">get</span> headers <span class="op">=&gt;</span> <span class="op">{</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Content-Type&#39;</span><span class="op">:</span> <span class="st">&#39;application/json&#39;</span><span class="op">,</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (accessToken <span class="op">!=</span> <span class="cn">null</span>) <span class="st">&#39;Authorization&#39;</span><span class="op">:</span> <span class="st">&#39;Bearer $accessToken&#39;</span><span class="op">,</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>;</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />API 응답 모델 생성
+(<code>lib/models/api_response.dart</code>)</label></li>
+<li><label><input type="checkbox" />에러 핸들링 구현</label></li>
+</ul>
+<h3 id="인증-로직-변경">3.4 인증 로직 변경</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />JWT 토큰 저장소 구현
+(<code>lib/services/auth_storage.dart</code>)</label></li>
+</ul>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AuthStorage <span class="op">{</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> FlutterSecureStorage _storage <span class="op">=</span> FlutterSecureStorage();</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> saveToken(<span class="dt">String</span> accessToken<span class="op">,</span> <span class="dt">String</span> refreshToken) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">await</span> _storage<span class="op">.</span>write(key<span class="op">:</span> <span class="st">&#39;access_token&#39;</span><span class="op">,</span> value<span class="op">:</span> accessToken);</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">await</span> _storage<span class="op">.</span>write(key<span class="op">:</span> <span class="st">&#39;refresh_token&#39;</span><span class="op">,</span> value<span class="op">:</span> refreshToken);</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Future</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">?&gt;</span> getAccessToken() <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> <span class="at">await</span> _storage<span class="op">.</span>read(key<span class="op">:</span> <span class="st">&#39;access_token&#39;</span>);</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />소셜 로그인 플로우 구현</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />카카오 로그인
+(<code>kakao_flutter_sdk</code> 패키지 사용)</label></li>
+<li><label><input type="checkbox" />로그인 버튼 UI</label></li>
+<li><label><input type="checkbox" />인가 코드 받기</label></li>
+<li><label><input type="checkbox" />백엔드 API 호출</label></li>
+<li><label><input type="checkbox" />JWT 토큰 저장</label></li>
+</ul></li>
+<li><label><input type="checkbox" />자동 로그인 구현</label></li>
+<li><label><input type="checkbox" />토큰 갱신 로직 구현</label></li>
+</ul>
+<h3 id="데이터-모델-생성">3.5 데이터 모델 생성</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" /><code>lib/models/place.dart</code> -
+장소 모델</label></li>
+</ul>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Place <span class="op">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> <span class="dt">int</span> id;</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> <span class="dt">String</span> name;</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> <span class="dt">String</span> description;</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> <span class="dt">String</span> district;</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> <span class="dt">String</span> address;</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> <span class="dt">double</span> latitude;</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> <span class="dt">double</span> longitude;</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> Category category;</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> <span class="dt">int</span> likeCount;</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> <span class="dt">int</span> bookmarkCount;</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> <span class="dt">double</span> averageRating;</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">factory</span> Place<span class="op">.</span>fromJson(<span class="dt">Map</span><span class="op">&lt;</span><span class="dt">String</span><span class="op">,</span> <span class="at">dynamic</span><span class="op">&gt;</span> json) <span class="op">{</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Place(</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>      id<span class="op">:</span> json[<span class="st">&#39;id&#39;</span>]<span class="op">,</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>      name<span class="op">:</span> json[<span class="st">&#39;name&#39;</span>]<span class="op">,</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>      <span class="co">// ...</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    );</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<ul class="task-list">
+<li><label><input
+type="checkbox" /><code>lib/models/category.dart</code> - 카테고리
+모델</label></li>
+<li><label><input type="checkbox" /><code>lib/models/review.dart</code>
+- 리뷰 모델</label></li>
+<li><label><input type="checkbox" /><code>lib/models/user.dart</code> -
+사용자 모델</label></li>
+</ul>
+<h3 id="provider-상태-관리-구현">3.6 Provider 상태 관리 구현</h3>
+<ul class="task-list">
+<li><label><input
+type="checkbox" /><code>lib/providers/auth_provider.dart</code> - 인증
+상태</label></li>
+<li><label><input
+type="checkbox" /><code>lib/providers/place_provider.dart</code> - 장소
+상태</label></li>
+<li><label><input
+type="checkbox" /><code>lib/providers/category_provider.dart</code> -
+카테고리 상태</label></li>
+<li><label><input
+type="checkbox" /><code>lib/providers/user_provider.dart</code> - 사용자
+상태</label></li>
+</ul>
+<h3 id="api-서비스-구현">3.7 API 서비스 구현</h3>
+<ul class="task-list">
+<li><label><input
+type="checkbox" /><code>lib/services/place_service.dart</code></label>
+<ul class="task-list">
+<li><label><input type="checkbox" /><code>getPlaces()</code> - 장소
+목록</label></li>
+<li><label><input type="checkbox" /><code>getPlaceById(id)</code> - 장소
+상세</label></li>
+<li><label><input type="checkbox" /><code>getHotPlaces()</code> - HOT
+장소</label></li>
+<li><label><input
+type="checkbox" /><code>getNearbyPlaces(lat, lon)</code> - 주변
+장소</label></li>
+<li><label><input type="checkbox" /><code>searchPlaces(keyword)</code> -
+장소 검색</label></li>
+<li><label><input type="checkbox" /><code>createPlace()</code> - 장소
+등록</label></li>
+</ul></li>
+<li><label><input
+type="checkbox" /><code>lib/services/like_service.dart</code></label>
+<ul class="task-list">
+<li><label><input type="checkbox" /><code>addLike(placeId)</code> -
+좋아요 추가</label></li>
+<li><label><input type="checkbox" /><code>removeLike(placeId)</code> -
+좋아요 취소</label></li>
+<li><label><input type="checkbox" /><code>checkLike(placeId)</code> -
+좋아요 여부</label></li>
+</ul></li>
+<li><label><input
+type="checkbox" /><code>lib/services/bookmark_service.dart</code></label></li>
+<li><label><input
+type="checkbox" /><code>lib/services/review_service.dart</code></label></li>
+<li><label><input
+type="checkbox" /><code>lib/services/upload_service.dart</code> - 이미지
+업로드</label></li>
+</ul>
+<h3 id="ui-화면-연동">3.8 UI 화면 연동</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />홈 화면</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />카테고리 탭 구현</label></li>
+<li><label><input type="checkbox" />HOT 장소 표시</label></li>
+<li><label><input type="checkbox" />지도에 마커 표시 (Google
+Maps)</label></li>
+</ul></li>
+<li><label><input type="checkbox" />장소 상세 화면</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />장소 정보 표시</label></li>
+<li><label><input type="checkbox" />좋아요/북마크 버튼</label></li>
+<li><label><input type="checkbox" />리뷰 목록</label></li>
+<li><label><input type="checkbox" />평균 평점 표시</label></li>
+</ul></li>
+<li><label><input type="checkbox" />장소 등록 화면</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />카테고리 선택</label></li>
+<li><label><input type="checkbox" />위치 선택 (Google Maps)</label></li>
+<li><label><input type="checkbox" />이미지 업로드</label></li>
+</ul></li>
+<li><label><input type="checkbox" />리뷰 작성 화면</label></li>
+<li><label><input type="checkbox" />내 정보 화면</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />포인트 표시</label></li>
+<li><label><input type="checkbox" />내가 등록한 장소</label></li>
+<li><label><input type="checkbox" />내가 작성한 리뷰</label></li>
+<li><label><input type="checkbox" />좋아요한 장소</label></li>
+<li><label><input type="checkbox" />북마크한 장소</label></li>
+</ul></li>
+</ul>
+<h3 id="이미지-업로드-구현">3.9 이미지 업로드 구현</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" /><code>image_picker</code> 패키지
+추가</label></li>
+<li><label><input type="checkbox" />카메라/갤러리에서 이미지
+선택</label></li>
+<li><label><input type="checkbox" />MultipartFile로 변환</label></li>
+<li><label><input type="checkbox" />서버 업로드 API 호출</label></li>
+<li><label><input type="checkbox" />이미지 URL 받아서 표시</label></li>
+</ul>
+<h3 id="테스트">3.10 테스트</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />로그인/로그아웃 테스트</label></li>
+<li><label><input type="checkbox" />장소 CRUD 테스트</label></li>
+<li><label><input type="checkbox" />좋아요/북마크 테스트</label></li>
+<li><label><input type="checkbox" />리뷰 작성 테스트</label></li>
+<li><label><input type="checkbox" />이미지 업로드 테스트</label></li>
+<li><label><input type="checkbox" />에러 처리 테스트 (네트워크 오류,
+인증 실패 등)</label></li>
+</ul>
+<p><strong>산출물</strong>: - ✅ Firebase 제거 또는 병행 사용 설정 - ✅
+완전히 작동하는 Flutter 앱 - ✅ Spring Boot API와 완벽 연동 - ✅ 소셜
+로그인 통합</p>
+<hr />
+<h2 id="phase-4-aws-프로덕션-배포-3-5일">☁️ Phase 4: AWS 프로덕션 배포
+(3-5일)</h2>
+<h3 id="aws-계정-설정">4.1 AWS 계정 설정</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />AWS 계정 생성 (Free Tier)</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />이메일 주소 입력</label></li>
+<li><label><input type="checkbox" />신용카드 등록 (Free Tier에서도 필요,
+과금 없음)</label></li>
+<li><label><input type="checkbox" />신원 확인 (전화번호)</label></li>
+</ul></li>
+<li><label><input type="checkbox" />IAM 사용자 생성</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />루트 계정 대신 IAM 사용자로
+작업</label></li>
+<li><label><input type="checkbox" />관리자 권한 부여</label></li>
+<li><label><input type="checkbox" />Access Key 생성 및 저장</label></li>
+</ul></li>
+<li><label><input type="checkbox" />MFA (Multi-Factor Authentication)
+설정 (선택, 권장)</label></li>
+<li><label><input type="checkbox" />리전 선택: <strong>서울
+(ap-northeast-2)</strong> 선택</label></li>
+</ul>
+<h3 id="rds-mysql-설정">4.2 RDS (MySQL) 설정</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />RDS 콘솔 접속</label></li>
+<li><label><input type="checkbox" />데이터베이스 생성</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />엔진: MySQL 8.0</label></li>
+<li><label><input type="checkbox" />템플릿: <strong>프리
+티어</strong></label></li>
+<li><label><input type="checkbox" />DB 인스턴스 식별자:
+<code>perfacto-db</code></label></li>
+<li><label><input type="checkbox" />마스터 사용자 이름:
+<code>admin</code></label></li>
+<li><label><input type="checkbox" />마스터 암호 설정 (강력한
+비밀번호)</label></li>
+<li><label><input type="checkbox" />DB 인스턴스 클래스:
+<code>db.t3.micro</code> (Free Tier)</label></li>
+<li><label><input type="checkbox" />스토리지: 20GB (Free Tier
+최대)</label></li>
+<li><label><input type="checkbox" />퍼블릭 액세스: <strong>예</strong>
+(개발용, 나중에 보안 강화)</label></li>
+<li><label><input type="checkbox" />VPC 보안 그룹: 새로
+생성</label></li>
+</ul></li>
+<li><label><input type="checkbox" />보안 그룹 설정</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />인바운드 규칙 추가</label>
+<ul>
+<li>유형: MySQL/Aurora (3306)</li>
+<li>소스: 내 IP (개발 시) 또는 EC2 보안 그룹</li>
+</ul></li>
+</ul></li>
+<li><label><input type="checkbox" />엔드포인트 주소 복사</label>
+<ul>
+<li>예:
+<code>perfacto-db.xxxxx.ap-northeast-2.rds.amazonaws.com</code></li>
+</ul></li>
+<li><label><input type="checkbox" />로컬에서 연결 테스트</label></li>
+</ul>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql</span> <span class="at">-h</span> perfacto-db.xxxxx.ap-northeast-2.rds.amazonaws.com <span class="at">-u</span> admin <span class="at">-p</span></span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" /><code>perfacto</code> 데이터베이스
+생성</label></li>
+</ul>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">DATABASE</span> perfacto <span class="dt">CHARACTER</span> <span class="kw">SET</span> utf8mb4 COLLATE utf8mb4_unicode_ci;</span></code></pre></div>
+<p><strong>예상 비용</strong>: Free Tier (12개월 무료) - 750시간/월
+(24시간 x 31일) - 20GB 스토리지</p>
+<h3 id="ec2-인스턴스-설정">4.3 EC2 인스턴스 설정</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />EC2 콘솔 접속</label></li>
+<li><label><input type="checkbox" />인스턴스 시작</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />AMI: Ubuntu Server 22.04 LTS (Free
+Tier)</label></li>
+<li><label><input type="checkbox" />인스턴스 유형:
+<strong>t2.micro</strong> (Free Tier)</label></li>
+<li><label><input type="checkbox" />키 페어 생성 및 다운로드</label>
+<ul>
+<li>이름: <code>perfacto-key</code></li>
+<li>파일: <code>perfacto-key.pem</code> 안전하게 보관</li>
+</ul></li>
+<li><label><input type="checkbox" />네트워크 설정</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />퍼블릭 IP 자동 할당:
+활성화</label></li>
+<li><label><input type="checkbox" />보안 그룹 생성</label>
+<ul>
+<li>SSH (22): 내 IP</li>
+<li>HTTP (80): 0.0.0.0/0</li>
+<li>HTTPS (443): 0.0.0.0/0</li>
+<li>Custom (8080): 0.0.0.0/0 (나중에 제거)</li>
+</ul></li>
+</ul></li>
+<li><label><input type="checkbox" />스토리지: 30GB (Free Tier
+최대)</label></li>
+</ul></li>
+<li><label><input type="checkbox" />인스턴스 시작</label></li>
+<li><label><input type="checkbox" />Elastic IP 할당 (선택사항, 고정
+IP)</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />Elastic IP 주소 할당</label></li>
+<li><label><input type="checkbox" />인스턴스에 연결</label></li>
+</ul></li>
+</ul>
+<p><strong>예상 비용</strong>: Free Tier (12개월 무료) - 750시간/월</p>
+<h3 id="ec2-서버-환경-설정">4.4 EC2 서버 환경 설정</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />SSH 접속</label></li>
+</ul>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 400 perfacto-key.pem</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-i</span> perfacto-key.pem ubuntu@<span class="pp">[</span><span class="ss">EC2_PUBLIC_IP</span><span class="pp">]</span></span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />시스템 업데이트</label></li>
+</ul>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt upgrade <span class="at">-y</span></span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />JDK 17 설치</label></li>
+</ul>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install openjdk-17-jdk <span class="at">-y</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-version</span></span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />Nginx 설치 (리버스
+프록시)</label></li>
+</ul>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install nginx <span class="at">-y</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl start nginx</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl enable nginx</span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />작업 디렉토리 생성</label></li>
+</ul>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> ~/perfacto</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/perfacto</span></code></pre></div>
+<h3 id="애플리케이션-배포">4.5 애플리케이션 배포</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />로컬에서 JAR 빌드</label></li>
+</ul>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /Users/mac/spring_boot_proj/perfacto_server</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./gradlew</span> clean bootJar</span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />JAR 파일을 EC2로 전송</label></li>
+</ul>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="at">-i</span> perfacto-key.pem build/libs/app.jar ubuntu@<span class="pp">[</span><span class="ss">EC2_PUBLIC_IP</span><span class="pp">]</span>:~/perfacto/</span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />프로덕션 설정 파일 생성</label></li>
+</ul>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-i</span> perfacto-key.pem ubuntu@<span class="pp">[</span><span class="ss">EC2_PUBLIC_IP</span><span class="pp">]</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/perfacto</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> application-prod.yml</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">spring</span><span class="kw">:</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">datasource</span><span class="kw">:</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">url</span><span class="kw">:</span><span class="at"> jdbc:mysql://perfacto-db.xxxxx.ap-northeast-2.rds.amazonaws.com:3306/perfacto</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">username</span><span class="kw">:</span><span class="at"> admin</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">password</span><span class="kw">:</span><span class="at"> YOUR_RDS_PASSWORD</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">jpa</span><span class="kw">:</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">hibernate</span><span class="kw">:</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">ddl-auto</span><span class="kw">:</span><span class="at"> validate</span></span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />환경 변수 설정</label></li>
+</ul>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> ~/.bashrc</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 맨 아래 추가</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">JWT_SECRET</span><span class="op">=</span><span class="st">&quot;your-production-secret-key&quot;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">DB_PASSWORD</span><span class="op">=</span><span class="st">&quot;your-rds-password&quot;</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />서버 실행 테스트</label></li>
+</ul>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">java</span> <span class="at">-jar</span> <span class="at">-Dspring.profiles.active</span><span class="op">=</span>prod app.jar</span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />브라우저에서 확인</label></li>
+</ul>
+<pre><code>http://[EC2_PUBLIC_IP]:8080/perfacto/every/categories</code></pre>
+<h3 id="systemd-서비스-등록-자동-재시작">4.6 Systemd 서비스 등록 (자동
+재시작)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />서비스 파일 생성</label></li>
+</ul>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> nano /etc/systemd/system/perfacto.service</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode ini"><code class="sourceCode ini"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[Unit]</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Description</span><span class="ot">=</span><span class="st">Perfacto Spring Boot Application</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="dt">After</span><span class="ot">=</span><span class="st">syslog.target network.target</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="kw">[Service]</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="dt">User</span><span class="ot">=</span><span class="st">ubuntu</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="dt">WorkingDirectory</span><span class="ot">=</span><span class="st">/home/ubuntu/perfacto</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="dt">ExecStart</span><span class="ot">=</span><span class="st">/usr/bin/java -jar -Dspring.profiles.active=prod /home/ubuntu/perfacto/app.jar</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="dt">SuccessExitStatus</span><span class="ot">=</span><span class="dv">143</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="dt">Restart</span><span class="ot">=</span><span class="st">always</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="dt">RestartSec</span><span class="ot">=</span><span class="dv">10</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="dt">Environment</span><span class="ot">=</span><span class="st">&quot;JWT_SECRET=your-production-secret-key&quot;</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="dt">Environment</span><span class="ot">=</span><span class="st">&quot;DB_PASSWORD=your-rds-password&quot;</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="kw">[Install]</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="dt">WantedBy</span><span class="ot">=</span><span class="st">multi-user.target</span></span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />서비스 시작</label></li>
+</ul>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl daemon-reload</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl start perfacto</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl enable perfacto</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl status perfacto</span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />로그 확인</label></li>
+</ul>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> journalctl <span class="at">-u</span> perfacto <span class="at">-f</span></span></code></pre></div>
+<h3 id="nginx-리버스-프록시-설정">4.7 Nginx 리버스 프록시 설정</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Nginx 설정 파일 생성</label></li>
+</ul>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> nano /etc/nginx/sites-available/perfacto</span></code></pre></div>
+<pre class="nginx"><code>server {
+    listen 80;
+    server_name [EC2_PUBLIC_IP_OR_DOMAIN];
+
+    location / {
+        proxy_pass http://localhost:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}</code></pre>
+<ul class="task-list">
+<li><label><input type="checkbox" />심볼릭 링크 생성</label></li>
+</ul>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ln <span class="at">-s</span> /etc/nginx/sites-available/perfacto /etc/nginx/sites-enabled/</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> rm /etc/nginx/sites-enabled/default</span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />Nginx 재시작</label></li>
+</ul>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> nginx <span class="at">-t</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl restart nginx</span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />브라우저에서 확인</label></li>
+</ul>
+<pre><code>http://[EC2_PUBLIC_IP]/perfacto/every/categories</code></pre>
+<h3 id="도메인-및-https-설정-선택사항">4.8 도메인 및 HTTPS 설정
+(선택사항)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />도메인 구매 (Gabia, Route53
+등)</label>
+<ul>
+<li>예: <code>perfacto.com</code></li>
+</ul></li>
+<li><label><input type="checkbox" />Route 53 (AWS DNS)</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />호스팅 영역 생성</label></li>
+<li><label><input type="checkbox" />A 레코드 추가</label>
+<ul>
+<li>이름: <code>api.perfacto.com</code></li>
+<li>값: EC2 Elastic IP</li>
+</ul></li>
+</ul></li>
+<li><label><input type="checkbox" />도메인 네임서버 변경</label>
+<ul>
+<li>Route 53의 NS 레코드를 도메인 등록기관에 입력</li>
+</ul></li>
+<li><label><input type="checkbox" />SSL 인증서 발급 (Let’s
+Encrypt)</label></li>
+</ul>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install certbot python3-certbot-nginx <span class="at">-y</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> certbot <span class="at">--nginx</span> <span class="at">-d</span> api.perfacto.com</span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />자동 갱신 설정</label></li>
+</ul>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> certbot renew <span class="at">--dry-run</span></span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />HTTPS 확인</label></li>
+</ul>
+<pre><code>https://api.perfacto.com/perfacto/every/categories</code></pre>
+<h3 id="보안-강화">4.9 보안 강화</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />SSH 포트 변경 (선택)</label></li>
+<li><label><input type="checkbox" />방화벽 설정 (UFW)</label></li>
+</ul>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ufw allow 22/tcp</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ufw allow 80/tcp</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ufw allow 443/tcp</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ufw enable</span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />RDS 보안 그룹 업데이트</label>
+<ul>
+<li>EC2 보안 그룹만 허용</li>
+</ul></li>
+<li><label><input type="checkbox" />EC2 보안 그룹 업데이트</label>
+<ul>
+<li>8080 포트 제거 (Nginx를 통해서만 접근)</li>
+</ul></li>
+<li><label><input type="checkbox" />환경 변수 암호화 (AWS Secrets
+Manager 또는 Parameter Store)</label></li>
+</ul>
+<h3 id="모니터링-및-로깅">4.10 모니터링 및 로깅</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />CloudWatch 설정</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />EC2 메트릭 확인 (CPU,
+메모리)</label></li>
+<li><label><input type="checkbox" />RDS 메트릭 확인</label></li>
+<li><label><input type="checkbox" />알람 설정 (CPU &gt;
+80%)</label></li>
+</ul></li>
+<li><label><input type="checkbox" />로그 수집</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />CloudWatch Logs Agent 설치
+(선택)</label></li>
+<li><label><input type="checkbox" />애플리케이션 로그 전송</label></li>
+</ul></li>
+<li><label><input type="checkbox" />백업 설정</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />RDS 자동 백업 활성화 (7일
+보관)</label></li>
+<li><label><input type="checkbox" />EC2 AMI 생성 (주기적)</label></li>
+</ul></li>
+</ul>
+<h3 id="배포-자동화-선택사항">4.11 배포 자동화 (선택사항)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />GitHub Actions CI/CD
+설정</label></li>
+</ul>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># .github/workflows/deploy.yml</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy to AWS</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at"> main </span><span class="kw">]</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">deploy</span><span class="kw">:</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v2</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Set up JDK 17</span></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/setup-java@v2</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">java-version</span><span class="kw">:</span><span class="at"> </span><span class="st">&#39;17&#39;</span></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build with Gradle</span></span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> ./gradlew bootJar</span></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy to EC2</span></span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> appleboy/scp-action@master</span></span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">host</span><span class="kw">:</span><span class="at"> ${{ secrets.EC2_HOST }}</span></span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">username</span><span class="kw">:</span><span class="at"> ubuntu</span></span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">key</span><span class="kw">:</span><span class="at"> ${{ secrets.EC2_KEY }}</span></span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">source</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;build/libs/app.jar&quot;</span></span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">target</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;/home/ubuntu/perfacto&quot;</span></span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Restart application</span></span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> appleboy/ssh-action@master</span></span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">host</span><span class="kw">:</span><span class="at"> ${{ secrets.EC2_HOST }}</span></span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">username</span><span class="kw">:</span><span class="at"> ubuntu</span></span>
+<span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">key</span><span class="kw">:</span><span class="at"> ${{ secrets.EC2_KEY }}</span></span>
+<span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">script</span><span class="kw">:</span><span class="at"> sudo systemctl restart perfacto</span></span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />GitHub Secrets 설정</label>
+<ul>
+<li>EC2_HOST</li>
+<li>EC2_KEY</li>
+</ul></li>
+</ul>
+<h3 id="flutter-앱-설정-업데이트">4.12 Flutter 앱 설정 업데이트</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />API Base URL 변경</label></li>
+</ul>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ApiConfig <span class="op">{</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">static</span> <span class="at">const</span> <span class="dt">String</span> baseUrl <span class="op">=</span> <span class="st">&#39;https://api.perfacto.com&#39;</span>;</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 또는</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">static</span> <span class="at">const</span> <span class="dt">String</span> baseUrl <span class="op">=</span> <span class="st">&#39;http://[EC2_PUBLIC_IP]&#39;</span>;</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<ul class="task-list">
+<li><label><input type="checkbox" />소셜 로그인 Redirect URI
+업데이트</label>
+<ul>
+<li>카카오:
+<code>https://api.perfacto.com/perfacto/auth/kakao-login</code></li>
+<li>네이버:
+<code>https://api.perfacto.com/perfacto/auth/naver-login</code></li>
+<li>Apple:
+<code>https://api.perfacto.com/perfacto/auth/apple-login</code></li>
+</ul></li>
+<li><label><input type="checkbox" />앱 빌드 및 테스트</label></li>
+<li><label><input type="checkbox" />실제 디바이스에서 프로덕션 API
+테스트</label></li>
+</ul>
+<h3 id="법인카드-연결-준비">4.13 법인카드 연결 준비</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />AWS 비용 확인</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />Cost Explorer 활성화</label></li>
+<li><label><input type="checkbox" />예산 알람 설정 (월 $10, $50
+등)</label></li>
+</ul></li>
+<li><label><input type="checkbox" />Free Tier 사용량 모니터링</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />EC2: 750시간/월</label></li>
+<li><label><input type="checkbox" />RDS: 750시간/월</label></li>
+<li><label><input type="checkbox" />스토리지: 30GB</label></li>
+</ul></li>
+<li><label><input type="checkbox" />법인카드 등록 시점 결정</label>
+<ul>
+<li>Free Tier 만료 전 (12개월)</li>
+<li>또는 사용량 초과 예상 시</li>
+</ul></li>
+<li><label><input type="checkbox" />법인카드 등록</label>
+<ul class="task-list">
+<li><label><input type="checkbox" />AWS 계정 설정 → 결제
+정보</label></li>
+<li><label><input type="checkbox" />법인카드 정보 입력</label></li>
+<li><label><input type="checkbox" />청구서 수신 이메일 설정</label></li>
+</ul></li>
+</ul>
+<p><strong>산출물</strong>: - ✅ AWS에서 실행되는 프로덕션 서버 - ✅ RDS
+MySQL 데이터베이스 - ✅ 도메인 및 HTTPS 설정 (선택) - ✅ 자동 재시작 및
+모니터링 - ✅ Flutter 앱 프로덕션 연동</p>
+<hr />
+<h2 id="전체-일정-요약">📊 전체 일정 요약</h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>작업</th>
+<th>예상 기간</th>
+<th>의존성</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>서버 실행 및 테스트</td>
+<td>1-2일</td>
+<td>없음</td>
+</tr>
+<tr>
+<td>2</td>
+<td>소셜 로그인 설정</td>
+<td>1-2일</td>
+<td>Phase 1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Flutter 앱 연동</td>
+<td>3-5일</td>
+<td>Phase 1, 2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>AWS 프로덕션 배포</td>
+<td>3-5일</td>
+<td>Phase 1, 2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>총 예상 기간</strong>: <strong>2-3주</strong></p>
+<hr />
+<h2 id="예상-비용-aws-free-tier">💰 예상 비용 (AWS Free Tier)</h2>
+<h3 id="free-tier-12개월">Free Tier (12개월)</h3>
+<ul>
+<li><strong>EC2 t2.micro</strong>: 750시간/월 (무료)</li>
+<li><strong>RDS db.t3.micro</strong>: 750시간/월 (무료)</li>
+<li><strong>스토리지</strong>: 30GB (무료)</li>
+<li><strong>데이터 전송</strong>: 15GB 아웃바운드 (무료)</li>
+</ul>
+<h3 id="free-tier-초과-시-법인카드-연결-후">Free Tier 초과 시 (법인카드
+연결 후)</h3>
+<ul>
+<li><strong>EC2 t2.micro</strong>: 약 $8.5/월</li>
+<li><strong>RDS db.t3.micro</strong>: 약 $15/월</li>
+<li><strong>스토리지</strong>: 20GB SSD - $2.3/월</li>
+<li><strong>예상 총액</strong>: <strong>약 $25-30/월</strong></li>
+</ul>
+<h3 id="선택-사항">선택 사항</h3>
+<ul>
+<li><strong>도메인</strong>: $10-15/년</li>
+<li><strong>Elastic IP (사용 중)</strong>: 무료</li>
+<li><strong>Elastic IP (미사용)</strong>: $0.005/시간</li>
+<li><strong>Route 53</strong>: $0.5/호스팅 영역/월</li>
+</ul>
+<hr />
+<h2 id="체크리스트-요약">✅ 체크리스트 요약</h2>
+<h3 id="phase-1-서버-실행-필수">Phase 1: 서버 실행 (필수)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />MySQL 데이터베이스 생성</label></li>
+<li><label><input type="checkbox" />application.yml 설정</label></li>
+<li><label><input type="checkbox" />서버 실행 성공</label></li>
+<li><label><input type="checkbox" />API 테스트 완료</label></li>
+</ul>
+<h3 id="phase-2-소셜-로그인-필수-카카오">Phase 2: 소셜 로그인 (필수:
+카카오)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />카카오 개발자 등록 및 키
+발급</label></li>
+<li><label><input type="checkbox" />네이버 개발자 등록
+(선택)</label></li>
+<li><label><input type="checkbox" />Apple 개발자 등록 (선택, iOS
+필수)</label></li>
+<li><label><input type="checkbox" />로그인 테스트 성공</label></li>
+</ul>
+<h3 id="phase-3-flutter-연동-필수">Phase 3: Flutter 연동 (필수)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />API 클라이언트 구현</label></li>
+<li><label><input type="checkbox" />인증 로직 구현</label></li>
+<li><label><input type="checkbox" />UI 화면 연동</label></li>
+<li><label><input type="checkbox" />통합 테스트 완료</label></li>
+</ul>
+<h3 id="phase-4-aws-배포-필수">Phase 4: AWS 배포 (필수)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />RDS MySQL 생성</label></li>
+<li><label><input type="checkbox" />EC2 인스턴스 생성</label></li>
+<li><label><input type="checkbox" />애플리케이션 배포</label></li>
+<li><label><input type="checkbox" />Nginx 설정</label></li>
+<li><label><input type="checkbox" />HTTPS 설정 (선택)</label></li>
+<li><label><input type="checkbox" />Flutter 앱 프로덕션
+테스트</label></li>
+</ul>
+<hr />
+<h2 id="참고-자료">📝 참고 자료</h2>
+<h3 id="공식-문서">공식 문서</h3>
+<ul>
+<li><a href="https://spring.io/projects/spring-boot">Spring Boot
+Documentation</a></li>
+<li><a href="https://aws.amazon.com/free/">AWS Free Tier</a></li>
+<li><a href="https://developers.kakao.com">Kakao Developers</a></li>
+<li><a href="https://flutter.dev/docs">Flutter Documentation</a></li>
+</ul>
+<h3 id="내부-문서">내부 문서</h3>
+<ul>
+<li><code>PERFACTO_API_GUIDE.md</code> - 전체 API 문서</li>
+<li><code>SETUP_GUIDE.md</code> - 로컬 설정 가이드</li>
+<li><code>SOCIAL_LOGIN_GUIDE.md</code> - 소셜 로그인 가이드</li>
+</ul>
+<h3 id="도구">도구</h3>
+<ul>
+<li><a href="https://www.postman.com/">Postman</a> - API 테스트</li>
+<li><a href="https://dbeaver.io/">DBeaver</a> - DB 관리</li>
+<li><a href="https://code.visualstudio.com/">VSCode</a> - 코드
+에디터</li>
+</ul>
+<hr />
+<h2 id="성공-기준">🎯 성공 기준</h2>
+<ul>
+<li>✅ 로컬에서 백엔드 서버 정상 실행</li>
+<li>✅ 카카오 로그인 성공</li>
+<li>✅ Flutter 앱에서 장소 CRUD 성공</li>
+<li>✅ AWS에서 프로덕션 서버 실행</li>
+<li>✅ 실제 디바이스에서 앱 테스트 성공</li>
+</ul>
+<hr />
+<p><strong>이 WBS를 Notion에 복사하여 사용하세요!</strong> 각 체크박스를
+완료하면서 진행 상황을 추적할 수 있습니다.</p>
+</body>
+</html>

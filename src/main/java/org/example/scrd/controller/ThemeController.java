@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/scrd/api")
+@RequestMapping("/perfacto/api")
 @RequiredArgsConstructor
 @Slf4j
 public class ThemeController {
@@ -88,7 +88,7 @@ public class ThemeController {
 
     /**
      * 필터 조건 기반 테마 조회 API
-     * ex: /scrd/api/theme/filter?horror=1&activity=1&minLevel=1.0&maxLevel=3.0&minRating=3.5&location=강남
+     * ex: /perfacto/api/theme/filter?horror=1&activity=1&minLevel=1.0&maxLevel=3.0&minRating=3.5&location=강남
      */
 
     @GetMapping("/theme/filter")

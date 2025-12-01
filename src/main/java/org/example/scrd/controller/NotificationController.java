@@ -14,7 +14,7 @@ import static javax.crypto.Cipher.SECRET_KEY;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/scrd/api")
+@RequestMapping("/perfacto/api")
 public class NotificationController {
 
     private final SseEmitterService sseEmitterService;

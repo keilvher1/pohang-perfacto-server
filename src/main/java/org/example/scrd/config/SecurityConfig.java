@@ -53,9 +53,9 @@ public class SecurityConfig {
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()  // ✅ 이 줄 추가!
-                        .requestMatchers("/scrd/auth/**", "/error" ,"/").permitAll()
-                        .requestMatchers("/scrd/every/**").permitAll()
-                        .requestMatchers("/scrd/api/**").authenticated() // 인증된 사용자만
+                        .requestMatchers("/perfacto/auth/**", "/error" ,"/").permitAll()
+                        .requestMatchers("/perfacto/every/**").permitAll()
+                        .requestMatchers("/perfacto/api/**").authenticated() // 인증된 사용자만
                 );
         return http.build();
     }

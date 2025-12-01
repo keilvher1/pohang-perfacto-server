@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/scrd/api/party/comment")
+@RequestMapping("/perfacto/api/party/comment")
 @RequiredArgsConstructor
 public class PartyCommentController {
 

@@ -66,6 +66,32 @@ public class AuthService {
         return UserDto.from(user);
     }
 
+    // Naver 로그인 로직
+    public UserDto naverLogin(UserDto dto) {
+        User user = userRepository
+                .findByNaverId(dto.getNaverId())
+                .orElseGet(() -> {
+                    User newUser = User.from(dto);
+                    newUser.setNickName(randomNicknameService.generateUniqueNickname());
+                    newUser.setTier(Tier.ONE);
+                    return userRepository.save(newUser);
+                });
+
+        // 네이버에서 받은 정보로 업데이트
+        user.setEmail(dto.getEmail());
+        user.setProfileImageUrl(dto.getProfileImageUrl());
+        user.setName(dto.getName());
+        user.setNaverId(dto.getNaverId());
+
+        // 기존 유저인데 닉네임이 없는 경우
+        if (user.getNickName() == null || user.getNickName().isBlank()) {
+            user.setNickName(randomNicknameService.generateUniqueNickname());
+            userRepository.save(user);
+        }
+
+        return UserDto.from(user);
+    }
+
     // 사용자 ID로 로그인한 사용자 정보 조회
     public User getLoginUser(Long userId) {
         // 사용자 ID로 사용자를 조회, 없으면 예외 발생

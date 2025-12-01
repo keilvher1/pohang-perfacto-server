@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Perfacto Guide</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Perfacto Guide</h1>
+</header>
+<h1 id="perfacto-backend-server---전체-요약">Perfacto Backend Server -
+전체 요약</h1>
+<h2 id="프로젝트-개요">🎯 프로젝트 개요</h2>
+<p><strong>Perfacto</strong>는 포항 지역의 맛집, 숙박, 카페, 관광지
+정보를 제공하는 Flutter 앱을 위한 Spring Boot 백엔드 서버입니다.</p>
+<h3 id="주요-기능">주요 기능</h3>
+<p>✅ 장소 정보 관리 (CRUD) ✅ 카테고리별 필터링 ✅ 위치 기반 검색
+(Haversine 공식) ✅ 좋아요/북마크 시스템 ✅ 리뷰 및 평점 시스템 ✅
+포인트 보상 시스템 ✅ 이미지 업로드 ✅ JWT 기반 인증 ✅ 카카오 로그인
+연동</p>
+<hr />
+<h2 id="프로젝트-구조">📁 프로젝트 구조</h2>
+<pre><code>perfacto_server/
+├── src/main/java/org/example/scrd/
+│   ├── config/               # 설정 클래스
+│   │   ├── SecurityConfig.java
+│   │   ├── DataInitializer.java
+│   │   ├── WebConfig.java
+│   │   ├── MongoConfig.java
+│   │   ├── RedisConfig.java
+│   │   └── QuerydslConfig.java
+│   │
+│   ├── controller/           # REST API 컨트롤러
+│   │   ├── PlaceController.java           # 장소 API
+│   │   ├── CategoryController.java        # 카테고리 API
+│   │   ├── LikeController.java           # 좋아요 API
+│   │   ├── BookmarkController.java       # 북마크 API
+│   │   ├── PerfactoReviewController.java # 리뷰 API
+│   │   ├── FileUploadController.java     # 파일 업로드 API
+│   │   └── AuthController.java           # 인증 API (기존)
+│   │
+│   ├── domain/               # 엔티티
+│   │   ├── Place.java                    # 장소
+│   │   ├── Category.java                 # 카테고리
+│   │   ├── PlaceImage.java              # 장소 이미지
+│   │   ├── Like.java                     # 좋아요
+│   │   ├── Bookmark.java                 # 북마크
+│   │   ├── PerfactoReview.java          # 리뷰
+│   │   └── User.java                     # 사용자 (기존)
+│   │
+│   ├── dto/                  # 데이터 전송 객체
+│   │   ├── request/
+│   │   │   ├── PlaceCreateRequest.java
+│   │   │   ├── PlaceUpdateRequest.java
+│   │   │   └── ReviewCreateRequest.java
+│   │   └── response/
+│   │       ├── PlaceResponse.java
+│   │       ├── CategoryResponse.java
+│   │       ├── ReviewResponse.java
+│   │       └── UserSimpleResponse.java
+│   │
+│   ├── repo/                 # 레포지토리
+│   │   ├── PlaceRepository.java
+│   │   ├── CategoryRepository.java
+│   │   ├── PlaceImageRepository.java
+│   │   ├── LikeRepository.java
+│   │   ├── BookmarkRepository.java
+│   │   ├── PerfactoReviewRepository.java
+│   │   └── UserRepository.java (기존)
+│   │
+│   ├── service/              # 비즈니스 로직
+│   │   ├── PlaceService.java
+│   │   ├── CategoryService.java
+│   │   ├── LikeService.java
+│   │   ├── BookmarkService.java
+│   │   ├── PerfactoReviewService.java
+│   │   └── FileUploadService.java
+│   │
+│   ├── exception/            # 예외 처리
+│   │   ├── NotFoundException.java
+│   │   ├── UnauthorizedAccessException.java
+│   │   ├── AlreadyJoinedException.java
+│   │   └── GlobalExceptionHandler.java
+│   │
+│   ├── filter/               # 필터
+│   │   ├── JwtTokenFilter.java
+│   │   └── ExceptionHandlerFilter.java
+│   │
+│   ├── util/                 # 유틸리티
+│   │   └── JwtUtil.java
+│   │
+│   ├── BaseEntity.java       # 공통 엔티티
+│   └── ScrdApplication.java  # 메인 클래스
+│
+├── src/main/resources/
+│   └── application.yml       # 설정 파일
+│
+├── build.gradle              # Gradle 빌드 설정
+├── PERFACTO_API_GUIDE.md     # 📘 API 문서
+├── SETUP_GUIDE.md            # ⚙️ 설치 가이드
+└── PERFACTO_BACKEND_SUMMARY.md # 📋 이 파일</code></pre>
+<hr />
+<h2 id="데이터베이스-스키마">🗄️ 데이터베이스 스키마</h2>
+<h3 id="주요-테이블-새로-생성">주요 테이블 (새로 생성)</h3>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 24%" />
+<col style="width: 44%" />
+</colgroup>
+<thead>
+<tr>
+<th>테이블</th>
+<th>설명</th>
+<th>주요 컬럼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>places</code></td>
+<td>장소 정보</td>
+<td>id, name, district, latitude, longitude, category_id</td>
+</tr>
+<tr>
+<td><code>categories</code></td>
+<td>카테고리</td>
+<td>id, code, name, display_order</td>
+</tr>
+<tr>
+<td><code>place_images</code></td>
+<td>장소 이미지</td>
+<td>id, place_id, image_url, display_order</td>
+</tr>
+<tr>
+<td><code>likes</code></td>
+<td>좋아요</td>
+<td>id, user_id, place_id</td>
+</tr>
+<tr>
+<td><code>bookmarks</code></td>
+<td>북마크</td>
+<td>id, user_id, place_id, memo</td>
+</tr>
+<tr>
+<td><code>perfacto_reviews</code></td>
+<td>리뷰</td>
+<td>id, place_id, user_id, rating, content</td>
+</tr>
+</tbody>
+</table>
+<h3 id="기존-테이블-활용">기존 테이블 (활용)</h3>
+<ul>
+<li><code>user</code> - 사용자 정보</li>
+<li><code>refresh_token</code> - 리프레시 토큰 (Redis)</li>
+</ul>
+<hr />
+<h2 id="api-엔드포인트-요약">🔌 API 엔드포인트 요약</h2>
+<h3 id="인증-기존-활용">인증 (기존 활용)</h3>
+<pre><code>GET  /perfacto/auth/kakao-login        # 카카오 로그인
+POST /perfacto/auth/refresh            # 토큰 갱신</code></pre>
+<h3 id="장소-place">장소 (Place)</h3>
+<pre><code>POST   /perfacto/api/places            # 장소 생성
+GET    /perfacto/api/places/{id}       # 장소 상세
+PUT    /perfacto/api/places/{id}       # 장소 수정
+DELETE /perfacto/api/places/{id}       # 장소 삭제
+GET    /perfacto/api/places            # 전체 조회
+GET    /perfacto/api/places/category/{categoryId}   # 카테고리별
+GET    /perfacto/api/places/district/{district}     # 구역별
+GET    /perfacto/api/places/search?keyword=         # 검색
+GET    /perfacto/api/places/hot                     # HOT 장소
+GET    /perfacto/api/places/recent                  # 최신 장소
+GET    /perfacto/api/places/nearby?lat=&amp;lon=        # 주변 장소
+GET    /perfacto/api/places/my                      # 내가 등록한 장소</code></pre>
+<h3 id="카테고리-category">카테고리 (Category)</h3>
+<pre><code>GET /perfacto/every/categories                      # 전체 카테고리
+GET /perfacto/every/categories/{id}                 # 카테고리 상세</code></pre>
+<h3 id="좋아요-like">좋아요 (Like)</h3>
+<pre><code>POST   /perfacto/api/likes/{placeId}                # 좋아요 추가
+DELETE /perfacto/api/likes/{placeId}                # 좋아요 취소
+GET    /perfacto/api/likes/{placeId}/check          # 좋아요 여부
+GET    /perfacto/api/likes/my                       # 내 좋아요 목록</code></pre>
+<h3 id="북마크-bookmark">북마크 (Bookmark)</h3>
+<pre><code>POST   /perfacto/api/bookmarks/{placeId}            # 북마크 추가
+DELETE /perfacto/api/bookmarks/{placeId}            # 북마크 제거
+PUT    /perfacto/api/bookmarks/{placeId}/memo       # 메모 수정
+GET    /perfacto/api/bookmarks/{placeId}/check      # 북마크 여부
+GET    /perfacto/api/bookmarks/my                   # 내 북마크 목록</code></pre>
+<h3 id="리뷰-review">리뷰 (Review)</h3>
+<pre><code>POST   /perfacto/api/reviews                        # 리뷰 작성
+PUT    /perfacto/api/reviews/{id}                   # 리뷰 수정
+DELETE /perfacto/api/reviews/{id}                   # 리뷰 삭제
+GET    /perfacto/api/reviews/place/{placeId}        # 장소별 리뷰
+GET    /perfacto/api/reviews/my                     # 내 리뷰
+POST   /perfacto/api/reviews/{id}/helpful           # 도움이 됨</code></pre>
+<h3 id="파일-업로드-upload">파일 업로드 (Upload)</h3>
+<pre><code>POST   /perfacto/api/upload/place/{placeId}         # 장소 이미지
+POST   /perfacto/api/upload/profile                 # 프로필 이미지
+DELETE /perfacto/api/upload/{imageId}               # 이미지 삭제</code></pre>
+<hr />
+<h2 id="보안-및-인증">🔐 보안 및 인증</h2>
+<h3 id="jwt-토큰-기반-인증">JWT 토큰 기반 인증</h3>
+<ul>
+<li><strong>Access Token</strong>: 2시간 유효</li>
+<li><strong>Refresh Token</strong>: 2시간 유효 (Redis 저장)</li>
+<li><strong>Header</strong>:
+<code>Authorization: Bearer {token}</code></li>
+</ul>
+<h3 id="권한-구분">권한 구분</h3>
+<table>
+<thead>
+<tr>
+<th>경로</th>
+<th>권한</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/perfacto/auth/**</code></td>
+<td>공개 (인증 불필요)</td>
+</tr>
+<tr>
+<td><code>/perfacto/every/**</code></td>
+<td>공개 (카테고리 조회 등)</td>
+</tr>
+<tr>
+<td><code>/perfacto/api/**</code></td>
+<td>인증 필요</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="포인트-시스템">💎 포인트 시스템</h2>
+<h3 id="포인트-획득">포인트 획득</h3>
+<ul>
+<li>장소 등록: <strong>+100 포인트</strong></li>
+<li>리뷰 작성: <strong>+500 포인트</strong></li>
+</ul>
+<h3 id="사용자-등급-tier">사용자 등급 (Tier)</h3>
+<p>기존 SCRD 시스템 활용: - 리뷰 작성 횟수에 따라 자동 등급 상승</p>
+<hr />
+<h2 id="시작하기">🚀 시작하기</h2>
+<h3 id="데이터베이스-생성">1. 데이터베이스 생성</h3>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">DATABASE</span> perfacto <span class="dt">CHARACTER</span> <span class="kw">SET</span> utf8mb4 COLLATE utf8mb4_unicode_ci;</span></code></pre></div>
+<h3 id="설정-파일-수정">2. 설정 파일 수정</h3>
+<p><code>src/main/resources/application.yml</code>:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">spring</span><span class="kw">:</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">datasource</span><span class="kw">:</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">url</span><span class="kw">:</span><span class="at"> jdbc:mysql://localhost:3306/perfacto</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">username</span><span class="kw">:</span><span class="at"> your_username</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">password</span><span class="kw">:</span><span class="at"> your_password</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">jpa</span><span class="kw">:</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">hibernate</span><span class="kw">:</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">ddl-auto</span><span class="kw">:</span><span class="at"> create</span><span class="co">  # 최초 실행 시, 이후 validate로 변경</span></span></code></pre></div>
+<h3 id="서버-실행">3. 서버 실행</h3>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./gradlew</span> bootRun</span></code></pre></div>
+<p>서버 주소: <code>http://localhost:8080</code></p>
+<h3 id="초기-데이터-확인">4. 초기 데이터 확인</h3>
+<p>서버 시작 시 자동으로 4개 카테고리 생성: - restaurant (음식점) -
+accommodation (숙박) - cafe (카페) - attraction (관광지)</p>
+<p>확인:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:8080/perfacto/every/categories</span></code></pre></div>
+<hr />
+<h2 id="flutter-앱-연동">📱 Flutter 앱 연동</h2>
+<h3 id="base-url-설정">1. Base URL 설정</h3>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ApiConfig <span class="op">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">static</span> <span class="at">const</span> <span class="dt">String</span> baseUrl <span class="op">=</span> <span class="st">&#39;http://localhost:8080&#39;</span>;</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">static</span> <span class="at">const</span> <span class="dt">String</span> apiPrefix <span class="op">=</span> <span class="st">&#39;/perfacto/api&#39;</span>;</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="장소-목록-조회-예제">2. 장소 목록 조회 예제</h3>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Future</span><span class="op">&lt;</span><span class="dt">List</span><span class="op">&lt;</span>Place<span class="op">&gt;&gt;</span> getPlaces(<span class="op">{</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> page <span class="op">=</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> size <span class="op">=</span> <span class="dv">20</span><span class="op">,</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span><span class="op">?</span> categoryCode<span class="op">,</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span><span class="op">?</span> district<span class="op">,</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">String</span> url <span class="op">=</span> <span class="st">&#39;${ApiConfig.baseUrl}${ApiConfig.apiPrefix}/places&#39;</span>;</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 카테고리 필터</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (categoryCode <span class="op">!=</span> <span class="cn">null</span>) <span class="op">{</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">final</span> category <span class="op">=</span> <span class="at">await</span> getCategoryByCode(categoryCode);</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    url <span class="op">=</span> <span class="st">&#39;${ApiConfig.baseUrl}${ApiConfig.apiPrefix}/places/category/${category.id}&#39;</span>;</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 구역 필터</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (district <span class="op">!=</span> <span class="cn">null</span>) <span class="op">{</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    url <span class="op">=</span> <span class="st">&#39;${ApiConfig.baseUrl}${ApiConfig.apiPrefix}/places/district/$district&#39;</span>;</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> response <span class="op">=</span> <span class="at">await</span> http<span class="op">.</span><span class="kw">get</span>(</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    Uri<span class="op">.</span>parse(<span class="st">&#39;$url?page=$page&amp;size=$size&#39;</span>)<span class="op">,</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    headers<span class="op">:</span> <span class="op">{</span><span class="st">&#39;Content-Type&#39;</span><span class="op">:</span> <span class="st">&#39;application/json&#39;</span><span class="op">},</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>  );</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (response<span class="op">.</span>statusCode <span class="op">==</span> <span class="dv">200</span>) <span class="op">{</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">final</span> data <span class="op">=</span> json<span class="op">.</span>decode(response<span class="op">.</span>body);</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> (data[<span class="st">&#39;data&#39;</span>][<span class="st">&#39;content&#39;</span>] <span class="kw">as</span> <span class="dt">List</span>)</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>map((json) <span class="op">=&gt;</span> Place<span class="op">.</span>fromJson(json))</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>toList();</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>  <span class="cf">throw</span> <span class="kw">Exception</span>(<span class="st">&#39;Failed to load places&#39;</span>);</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="hot-장소-조회">3. HOT 장소 조회</h3>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Future</span><span class="op">&lt;</span><span class="dt">List</span><span class="op">&lt;</span>Place<span class="op">&gt;&gt;</span> getHotPlaces(<span class="op">{</span><span class="dt">int</span> limit <span class="op">=</span> <span class="dv">10</span><span class="op">}</span>) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> response <span class="op">=</span> <span class="at">await</span> http<span class="op">.</span><span class="kw">get</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    Uri<span class="op">.</span>parse(<span class="st">&#39;${ApiConfig.baseUrl}${ApiConfig.apiPrefix}/places/hot?limit=$limit&#39;</span>)<span class="op">,</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  );</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (response<span class="op">.</span>statusCode <span class="op">==</span> <span class="dv">200</span>) <span class="op">{</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">final</span> data <span class="op">=</span> json<span class="op">.</span>decode(response<span class="op">.</span>body);</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> (data[<span class="st">&#39;data&#39;</span>] <span class="kw">as</span> <span class="dt">List</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>map((json) <span class="op">=&gt;</span> Place<span class="op">.</span>fromJson(json))</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>toList();</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">throw</span> <span class="kw">Exception</span>(<span class="st">&#39;Failed to load hot places&#39;</span>);</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="위치-기반-검색">4. 위치 기반 검색</h3>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode dart"><code class="sourceCode dart"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Future</span><span class="op">&lt;</span><span class="dt">List</span><span class="op">&lt;</span>Place<span class="op">&gt;&gt;</span> getNearbyPlaces(<span class="op">{</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  required <span class="dt">double</span> lat<span class="op">,</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  required <span class="dt">double</span> lon<span class="op">,</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">double</span> radius <span class="op">=</span> <span class="fl">5.0</span><span class="op">,</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>) <span class="at">async</span> <span class="op">{</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">final</span> response <span class="op">=</span> <span class="at">await</span> http<span class="op">.</span><span class="kw">get</span>(</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    Uri<span class="op">.</span>parse(</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;${ApiConfig.baseUrl}${ApiConfig.apiPrefix}/places/nearby&#39;</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">&#39;?lat=$lat&amp;lon=$lon&amp;radius=$radius&#39;</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  );</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (response<span class="op">.</span>statusCode <span class="op">==</span> <span class="dv">200</span>) <span class="op">{</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">final</span> data <span class="op">=</span> json<span class="op">.</span>decode(response<span class="op">.</span>body);</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> (data[<span class="st">&#39;data&#39;</span>] <span class="kw">as</span> <span class="dt">List</span>)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>map((json) <span class="op">=&gt;</span> Place<span class="op">.</span>fromJson(json))</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>toList();</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">throw</span> <span class="kw">Exception</span>(<span class="st">&#39;Failed to load nearby places&#39;</span>);</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<hr />
+<h2 id="기술-스택">🏗️ 기술 스택</h2>
+<h3 id="backend">Backend</h3>
+<ul>
+<li><strong>Framework</strong>: Spring Boot 3.3.5</li>
+<li><strong>Language</strong>: Java 17</li>
+<li><strong>Build Tool</strong>: Gradle 8.10.2</li>
+</ul>
+<h3 id="database">Database</h3>
+<ul>
+<li><strong>Primary</strong>: MySQL 8.0 (장소, 사용자, 리뷰 등)</li>
+<li><strong>Cache</strong>: Redis (Refresh Token)</li>
+<li><strong>Document</strong>: MongoDB (선택사항)</li>
+</ul>
+<h3 id="security-auth">Security &amp; Auth</h3>
+<ul>
+<li><strong>Authentication</strong>: JWT (JSON Web Token)</li>
+<li><strong>Social Login</strong>: Kakao, Naver, Apple</li>
+<li><strong>Security</strong>: Spring Security</li>
+</ul>
+<h3 id="orm-query">ORM &amp; Query</h3>
+<ul>
+<li><strong>ORM</strong>: JPA/Hibernate</li>
+<li><strong>Query Builder</strong>: QueryDSL</li>
+<li><strong>Auditing</strong>: Spring Data JPA Auditing</li>
+</ul>
+<hr />
+<h2 id="주요-기능-상세">📊 주요 기능 상세</h2>
+<h3 id="위치-기반-검색-1">1. 위치 기반 검색</h3>
+<p><strong>Haversine Formula</strong> 사용으로 정확한 거리 계산:</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> places</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> (<span class="dv">6371</span> <span class="op">*</span> <span class="fu">acos</span>(<span class="fu">cos</span>(radians(?)) <span class="op">*</span> <span class="fu">cos</span>(radians(latitude)) <span class="op">*</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cos</span>(radians(longitude) <span class="op">-</span> radians(?)) <span class="op">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sin</span>(radians(?)) <span class="op">*</span> <span class="fu">sin</span>(radians(latitude)))) <span class="op">&lt;=</span> ?</span></code></pre></div>
+<h3 id="좋아요북마크-시스템">2. 좋아요/북마크 시스템</h3>
+<ul>
+<li>중복 방지 (Unique 제약조건)</li>
+<li>카운트 자동 업데이트</li>
+<li>삭제 시 <span class="citation"
+data-cites="PreRemove로">@PreRemove로</span> 카운트 감소</li>
+</ul>
+<h3 id="리뷰-시스템">3. 리뷰 시스템</h3>
+<ul>
+<li>1.0 ~ 5.0 평점</li>
+<li>평균 평점 자동 계산</li>
+<li>도움이 됨 기능</li>
+<li>한 장소당 사용자 1개 리뷰만 허용</li>
+</ul>
+<h3 id="이미지-업로드">4. 이미지 업로드</h3>
+<ul>
+<li>로컬 스토리지 저장</li>
+<li>UUID 기반 파일명</li>
+<li>Display Order로 대표 이미지 설정</li>
+<li>향후 S3 연동 가능</li>
+</ul>
+<hr />
+<h2 id="firebase에서-spring-boot로-마이그레이션">🔄 Firebase에서 Spring
+Boot로 마이그레이션</h2>
+<h3 id="데이터-마이그레이션">데이터 마이그레이션</h3>
+<ol type="1">
+<li>Firebase Firestore 데이터 Export</li>
+<li>JSON → MySQL 변환 스크립트 작성</li>
+<li>데이터 Import</li>
+</ol>
+<h3 id="flutter-앱-수정사항">Flutter 앱 수정사항</h3>
+<ol type="1">
+<li>Firebase SDK 제거 또는 병행 사용</li>
+<li>API 호출 코드 변경</li>
+<li>인증 방식 변경 (Firebase Auth → JWT)</li>
+<li>이미지 경로 변경</li>
+</ol>
+<hr />
+<h2 id="참고-문서">📚 참고 문서</h2>
+<ul>
+<li><strong>API 전체 문서</strong>:
+<code>PERFACTO_API_GUIDE.md</code></li>
+<li><strong>설치 가이드</strong>: <code>SETUP_GUIDE.md</code></li>
+<li><strong>소셜 로그인</strong>: <code>SOCIAL_LOGIN_GUIDE.md</code>
+(기존)</li>
+</ul>
+<hr />
+<h2 id="학습-및-개발-팁">🎓 학습 및 개발 팁</h2>
+<h3 id="api-테스트">1. API 테스트</h3>
+<ul>
+<li><strong>Postman</strong> 사용 권장</li>
+<li>카테고리 조회부터 시작</li>
+<li>인증 토큰은 카카오 로그인으로 획득</li>
+</ul>
+<h3 id="데이터베이스-관리">2. 데이터베이스 관리</h3>
+<ul>
+<li><strong>DBeaver</strong> 또는 <strong>MySQL Workbench</strong>
+사용</li>
+<li>초기에는 <code>ddl-auto: create</code> 사용</li>
+<li>안정화 후 <code>validate</code>로 변경</li>
+</ul>
+<h3 id="로그-확인">3. 로그 확인</h3>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logging</span><span class="kw">:</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">level</span><span class="kw">:</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">org.example.scrd</span><span class="kw">:</span><span class="at"> DEBUG</span><span class="co">  # 상세 로그</span></span></code></pre></div>
+<h3 id="디버깅">4. 디버깅</h3>
+<ul>
+<li>IntelliJ IDEA Debugger 활용</li>
+<li>Breakpoint 설정</li>
+<li>Service 레이어부터 디버깅 시작</li>
+</ul>
+<hr />
+<h2 id="향후-개선-사항">🚧 향후 개선 사항</h2>
+<h3 id="기능-확장">기능 확장</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />장소 신고 기능</label></li>
+<li><label><input type="checkbox" />사용자 팔로우 시스템</label></li>
+<li><label><input type="checkbox" />장소 태그 시스템</label></li>
+<li><label><input type="checkbox" />검색 필터 고도화</label></li>
+</ul>
+<h3 id="인프라">인프라</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />S3 이미지 업로드</label></li>
+<li><label><input type="checkbox" />Redis 캐싱 확대</label></li>
+<li><label><input type="checkbox" />Elasticsearch 검색 연동</label></li>
+<li><label><input type="checkbox" />CI/CD 파이프라인</label></li>
+</ul>
+<h3 id="모니터링">모니터링</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Spring Actuator 활성화</label></li>
+<li><label><input type="checkbox" />Prometheus + Grafana</label></li>
+<li><label><input type="checkbox" />로그 집계 (ELK Stack)</label></li>
+</ul>
+<hr />
+<h2 id="문제-해결">💡 문제 해결</h2>
+<h3 id="q-서버가-실행되지-않아요">Q: 서버가 실행되지 않아요</h3>
+<p><strong>A</strong>: 1. MySQL이 실행 중인지 확인 2.
+<code>application.yml</code>의 DB 설정 확인 3. 포트 충돌 확인 (기본
+8080)</p>
+<h3 id="q-api-호출-시-401-unauthorized">Q: API 호출 시 401
+Unauthorized</h3>
+<p><strong>A</strong>: 1. Access Token 확인 2. Header 형식 확인:
+<code>Authorization: Bearer {token}</code> 3. Token 만료 확인
+(2시간)</p>
+<h3 id="q-이미지-업로드-실패">Q: 이미지 업로드 실패</h3>
+<p><strong>A</strong>: 1. <code>/uploads</code> 디렉토리 존재 확인 2.
+파일 크기 확인 (최대 10MB) 3. 권한 확인
+(<code>chmod 755 /uploads</code>)</p>
+<hr />
+<h2 id="지원">📞 지원</h2>
+<h3 id="개발-문의">개발 문의</h3>
+<ul>
+<li>GitHub Issues 등록</li>
+<li>상세한 에러 로그 첨부</li>
+</ul>
+<h3 id="기여하기">기여하기</h3>
+<ol type="1">
+<li>Fork the repository</li>
+<li>Create your feature branch</li>
+<li>Commit your changes</li>
+<li>Push to the branch</li>
+<li>Create a Pull Request</li>
+</ol>
+<hr />
+<h2 id="라이센스">📄 라이센스</h2>
+<p>MIT License</p>
+<hr />
+<p><strong>Happy Coding! 🚀</strong></p>
+</body>
+</html>

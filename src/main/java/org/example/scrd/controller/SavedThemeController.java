@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/scrd/api/save")
+@RequestMapping("/perfacto/api/save")
 @RequiredArgsConstructor
 public class SavedThemeController {
     private final SavedThemeService savedThemeService;
