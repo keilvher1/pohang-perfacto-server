@@ -44,6 +44,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         if (uri.startsWith("/error") ||
                 uri.startsWith("/scrd/auth/") ||
                 uri.startsWith("/scrd/every") ||
+                uri.startsWith("/perfacto/auth/") ||
+                uri.startsWith("/perfacto/every") ||
                 uri.equals("/")
         ) {
             filterChain.doFilter(request, response);

@@ -5,6 +5,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.scrd.dto.AppleDto;
+import org.example.scrd.dto.SignUpRequest;
+import org.example.scrd.dto.LoginRequest;
+import org.example.scrd.dto.AuthResponse;
+import org.example.scrd.domain.User;
 import org.example.scrd.util.JwtUtil;
 import org.example.scrd.dto.UserDto;
 import org.example.scrd.controller.response.KakaoLoginResponse;
@@ -147,6 +151,58 @@ public class AuthController {
                         .profileImageUrl(userDto.getProfileImageUrl())
                         .email(userDto.getEmail())
                         .naverId(userDto.getNaverId())
+                        .build());
+    }
+
+    @PostMapping("/perfacto/auth/signup")
+    public ResponseEntity<AuthResponse> signup(
+            @RequestBody SignUpRequest request,
+            HttpServletResponse response) {
+
+        // 회원가입 처리
+        User user = authService.signUp(request);
+
+        // JWT 토큰 생성
+        List<String> jwtToken = jwtUtil.createToken(user.getId(), SECRET_KEY, EXPIRE_TIME_MS, EXPIRE_REFRESH_TIME_MS);
+
+        // 헤더에 토큰 추가
+        response.setHeader("Authorization", "Bearer " + jwtToken.get(0));
+        response.setHeader("X-Refresh-Token", jwtToken.get(1));
+
+        // 응답 반환
+        return ResponseEntity.ok(
+                AuthResponse.builder()
+                        .userId(user.getId())
+                        .email(user.getEmail())
+                        .nickname(user.getNickName())
+                        .accessToken(jwtToken.get(0))
+                        .refreshToken(jwtToken.get(1))
+                        .build());
+    }
+
+    @PostMapping("/perfacto/auth/login")
+    public ResponseEntity<AuthResponse> login(
+            @RequestBody LoginRequest request,
+            HttpServletResponse response) {
+
+        // 로그인 처리
+        User user = authService.emailLogin(request);
+
+        // JWT 토큰 생성
+        List<String> jwtToken = jwtUtil.createToken(user.getId(), SECRET_KEY, EXPIRE_TIME_MS, EXPIRE_REFRESH_TIME_MS);
+
+        // 헤더에 토큰 추가
+        response.setHeader("Authorization", "Bearer " + jwtToken.get(0));
+        response.setHeader("X-Refresh-Token", jwtToken.get(1));
+
+        // 응답 반환
+        return ResponseEntity.ok(
+                AuthResponse.builder()
+                        .userId(user.getId())
+                        .email(user.getEmail())
+                        .nickname(user.getNickName())
+                        .accessToken(jwtToken.get(0))
+                        .refreshToken(jwtToken.get(1))
                         .build());
     }
 }

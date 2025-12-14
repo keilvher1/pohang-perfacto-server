@@ -1,0 +1,70 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://perfacto-db.ch2c2oyak2sk.ap-northeast-2.rds.amazonaws.com:3306/perfacto?useSSL=false
+    username: admin
+    password: "${DB_PASSWORD}"
+    hikari:
+      maximum-pool-size: 5
+      idle-timeout: 600000
+      max-lifetime: 600000
+      connection-timeout: 30000
+
+  jpa:
+    hibernate:
+      ddl-auto: update  # 최초 배포 시 update, 이후 validate
+    properties:
+      hibernate:
+        format_sql: false
+    show-sql: false
+
+  data:
+    web:
+      pageable:
+        max-page-size: 2000
+
+logging:
+  level:
+    root: INFO
+    org.example.scrd: INFO
+  file:
+    name: /var/log/perfacto/application.log
+    max-size: 10MB
+    max-history: 30
+
+custom:
+  host:
+    client: http://16.184.51.245,https://perfacto-7aa56.web.app,http://localhost:3000
+  jwt:
+    secret: "${JWT_SECRET:gjITbPwjXp3ZvUfcGx+sxaeB3Mdxcbfur9ZGZkmwgQs=}"
+    expire-time-ms: 7200000000
+    refresh-expire-time-ms: 7200000000
+
+kakao:
+  api:
+    key:
+      client: "6b4d8cc48ec73499504d519e26c84c91"
+    auth-url: "https://kauth.kakao.com/oauth/authorize"
+    redirect-uri: "http://16.184.51.245/perfacto/auth/kakao-login"
+
+naver:
+  api:
+    key:
+      client: "YOUR_NAVER_CLIENT_ID"
+      secret: "YOUR_NAVER_CLIENT_SECRET"
+    auth-url: "https://nid.naver.com/oauth2.0/authorize"
+    redirect-uri: "http://16.184.51.245/perfacto/auth/naver-login"
+
+apple:
+  api:
+    key:
+      team-id: "YOUR_APPLE_TEAM_ID"
+      key-id: "YOUR_APPLE_KEY_ID"
+      client-id: "YOUR_APPLE_CLIENT_ID"
+      redirect-url: "http://16.184.51.245/perfacto/auth/apple-login"
+      path: "/keys/AuthKey.p8"
+
+file:
+  upload:
+    path: /home/ubuntu/perfacto/uploads
+    url-prefix: /files

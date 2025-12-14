@@ -52,6 +52,10 @@ public class User extends BaseEntity {
     private String nickName;
 
     @Setter
+    @Column(columnDefinition = "varchar(255)")
+    private String password; // 자체 회원가입용 암호화된 비밀번호
+
+    @Setter
     private int point; // 결제 시스템 적용 후 사용되는 포인트 review 작성시 +500
     @Setter
     private int count; // review 쓸때마다 +1

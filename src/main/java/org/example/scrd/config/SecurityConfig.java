@@ -15,6 +15,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -31,7 +33,6 @@ import java.util.List;
 
 public class SecurityConfig {
 
-    private final AuthService authService;
     private final JwtUtil jwtUtil;
     @Value("${custom.jwt.secret}") // application properties에서 JWT 비밀키를 주입받음
     private String SECRET_KEY;
@@ -39,7 +40,7 @@ public class SecurityConfig {
     private List<String> hostClient;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthService authService) throws Exception {
         http.cors(Customizer.withDefaults()) // 기본 CORS 설정 적용
                 .csrf(AbstractHttpConfigurer::disable) // CSRF 보호 비활성화 (JWT를 사용하므로 필요 없음)
                 .formLogin(AbstractHttpConfigurer::disable)
@@ -58,6 +59,11 @@ public class SecurityConfig {
                         .requestMatchers("/perfacto/api/**").authenticated() // 인증된 사용자만
                 );
         return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean

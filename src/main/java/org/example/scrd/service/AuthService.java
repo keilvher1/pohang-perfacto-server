@@ -6,7 +6,11 @@ import org.example.scrd.domain.User;
 import org.example.scrd.dto.AppleDto;
 import org.example.scrd.dto.Tier;
 import org.example.scrd.dto.UserDto;
+import org.example.scrd.dto.SignUpRequest;
+import org.example.scrd.dto.LoginRequest;
+import org.example.scrd.domain.Role;
 import org.example.scrd.repo.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthService {
     private final UserRepository userRepository;
     private final RandomNicknameService randomNicknameService;
+    private final PasswordEncoder passwordEncoder;
 
     // 카카오 로그인 로직
     public UserDto kakaoLogin(UserDto dto) {
@@ -98,6 +103,43 @@ public class AuthService {
         return userRepository
                 .findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
+    }
+
+    // 이메일 회원가입
+    public User signUp(SignUpRequest request) {
+        // 이메일 중복 체크
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
+        }
+
+        // 비밀번호 암호화
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
+
+        // 새 사용자 생성
+        User newUser = User.builder()
+                .email(request.getEmail())
+                .password(encodedPassword)
+                .nickName(request.getNickname())
+                .name(request.getNickname())
+                .role(Role.ROLE_USER)
+                .tier(Tier.ONE)
+                .build();
+
+        return userRepository.save(newUser);
+    }
+
+    // 이메일 로그인
+    public User emailLogin(LoginRequest request) {
+        // 이메일로 사용자 조회
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException("이메일 또는 비밀번호가 올바르지 않습니다."));
+
+        // 비밀번호 검증
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("이메일 또는 비밀번호가 올바르지 않습니다.");
+        }
+
+        return user;
     }
 }
 
