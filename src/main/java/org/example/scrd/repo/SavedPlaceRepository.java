@@ -25,7 +25,7 @@ public interface SavedPlaceRepository extends JpaRepository<SavedPlace, Long> {
     /**
      * 사용자의 모든 저장된 장소 조회
      */
-    List<SavedPlace> findAllByUserOrderByCreatedAtDesc(User user);
+    List<SavedPlace> findAllByUserOrderByRegDateDesc(User user);
 
     /**
      * 장소를 저장한 사용자 수 카운트

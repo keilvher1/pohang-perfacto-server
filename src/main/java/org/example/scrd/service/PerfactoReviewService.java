@@ -2,9 +2,7 @@ package org.example.scrd.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.scrd.domain.PerfactoReview;
-import org.example.scrd.domain.Place;
-import org.example.scrd.domain.User;
+import org.example.scrd.domain.*;
 import org.example.scrd.dto.request.ReviewCreateRequest;
 import org.example.scrd.dto.response.ReviewResponse;
 import org.example.scrd.exception.AlreadyJoinedException;
@@ -18,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,8 +51,13 @@ public class PerfactoReviewService {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new NotFoundException("사용자를 찾을 수 없습니다."));
 
+        // 임시: 기존 rating을 ReviewRating으로 변환
+        ReviewRating rating = request.getRating() >= 4 ? ReviewRating.GOOD :
+                              request.getRating() >= 2.5 ? ReviewRating.NEUTRAL :
+                              ReviewRating.BAD;
+
         PerfactoReview review = PerfactoReview.create(
-            place, user, request.getRating(), request.getContent());
+            place, user, rating, new HashSet<>(), null, null);
 
         PerfactoReview savedReview = reviewRepository.save(review);
 
@@ -81,12 +85,10 @@ public class PerfactoReviewService {
             throw new UnauthorizedAccessException("리뷰를 수정할 권한이 없습니다.");
         }
 
-        if (rating != null) {
-            review.setRating(rating);
-        }
-        if (content != null) {
-            review.setContent(content);
-        }
+        // 임시: 새 구조에서는 수정 기능 보류
+        // if (rating != null) {
+        //     review.setOverallRating(...);
+        // }
 
         PerfactoReview updatedReview = reviewRepository.save(review);
         log.info("Review updated successfully");
@@ -149,17 +151,16 @@ public class PerfactoReviewService {
      * 장소의 평균 평점 조회
      */
     public Double getAverageRating(Long placeId) {
-        return reviewRepository.findAverageRatingByPlaceId(placeId)
-            .orElse(0.0);
+        return reviewRepository.calculateAverageRating(placeId);
     }
 
     /**
-     * 도움이 됨 수 상위 리뷰 조회
+     * 좋아요 수 상위 리뷰 조회
      */
     public List<ReviewResponse> getTopHelpfulReviews(Long placeId, int limit) {
         Pageable pageable = Pageable.ofSize(limit);
         List<PerfactoReview> reviews = reviewRepository
-            .findTopHelpfulReviewsByPlaceId(placeId, pageable);
+            .findTopLikedReviewsByPlaceId(placeId, pageable);
         return reviews.stream()
             .map(ReviewResponse::from)
             .collect(Collectors.toList());

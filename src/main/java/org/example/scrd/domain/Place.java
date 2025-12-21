@@ -139,7 +139,8 @@ public class Place extends BaseEntity {
             return 0.0;
         }
         return reviews.stream()
-            .mapToDouble(PerfactoReview::getRating)
+            .filter(r -> r.getIsActive())
+            .mapToDouble(r -> r.getRating())
             .average()
             .orElse(0.0);
     }

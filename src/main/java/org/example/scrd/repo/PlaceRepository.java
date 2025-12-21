@@ -69,7 +69,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
            "WHERE p.isActive = true " +
            "GROUP BY p.id " +
            "HAVING COUNT(r) > 0 " +
-           "ORDER BY AVG(r.rating) DESC")
+           "ORDER BY AVG(CASE r.overallRating WHEN 'GOOD' THEN 5 WHEN 'NEUTRAL' THEN 3 WHEN 'BAD' THEN 1 END) DESC")
     List<Place> findTopPlacesByRating(Pageable pageable);
 
     /**

@@ -114,4 +114,27 @@ public class PerfactoReview extends BaseEntity {
     public int getNumericRating() {
         return overallRating.getNumericValue();
     }
+
+    /**
+     * 기존 코드 호환성을 위한 메서드
+     */
+    public Double getRating() {
+        return (double) overallRating.getNumericValue();
+    }
+
+    public String getContent() {
+        // 이유들을 문자열로 변환
+        return reasons.stream()
+            .map(r -> r.getDescription())
+            .reduce((a, b) -> a + ", " + b)
+            .orElse("");
+    }
+
+    public Integer getHelpfulCount() {
+        return likeCount;
+    }
+
+    public void incrementHelpfulCount() {
+        incrementLikeCount();
+    }
 }

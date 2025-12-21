@@ -56,7 +56,7 @@ public class ReviewResponse {
             .comparison(review.getComparison())
             .likeCount(review.getLikeCount())
             .isLikedByMe(false) // 별도로 설정 필요
-            .createdAt(review.getCreatedAt())
+            .createdAt(review.getRegDate())
             .build();
     }
 

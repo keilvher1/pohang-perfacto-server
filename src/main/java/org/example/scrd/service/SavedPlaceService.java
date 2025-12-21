@@ -70,7 +70,7 @@ public class SavedPlaceService {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-        List<SavedPlace> savedPlaces = savedPlaceRepository.findAllByUserOrderByCreatedAtDesc(user);
+        List<SavedPlace> savedPlaces = savedPlaceRepository.findAllByUserOrderByRegDateDesc(user);
 
         return savedPlaces.stream()
             .map(SavedPlace::getPlace)

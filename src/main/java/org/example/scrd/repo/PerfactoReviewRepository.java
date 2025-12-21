@@ -23,13 +23,13 @@ public interface PerfactoReviewRepository extends JpaRepository<PerfactoReview, 
     /**
      * 장소별 리뷰 조회 (최신순, 활성화된 것만)
      */
-    Page<PerfactoReview> findByPlaceIdAndIsActiveTrueOrderByCreatedAtDesc(
+    Page<PerfactoReview> findByPlaceIdAndIsActiveTrueOrderByRegDateDesc(
         Long placeId, Pageable pageable);
 
     /**
      * 사용자별 리뷰 조회 (최신순, 활성화된 것만)
      */
-    Page<PerfactoReview> findByUserIdAndIsActiveTrueOrderByCreatedAtDesc(
+    Page<PerfactoReview> findByUserIdAndIsActiveTrueOrderByRegDateDesc(
         Long userId, Pageable pageable);
 
     /**
@@ -40,7 +40,7 @@ public interface PerfactoReviewRepository extends JpaRepository<PerfactoReview, 
     /**
      * 사용자가 작성한 모든 리뷰 조회
      */
-    List<PerfactoReview> findAllByUserOrderByCreatedAtDesc(User user);
+    List<PerfactoReview> findAllByUserOrderByRegDateDesc(User user);
 
     /**
      * 사용자가 특정 장소에 작성한 리뷰 조회
@@ -50,13 +50,13 @@ public interface PerfactoReviewRepository extends JpaRepository<PerfactoReview, 
     /**
      * 팔로우한 사용자들의 리뷰 조회
      */
-    @Query("SELECT r FROM PerfactoReview r WHERE r.place.id = :placeId AND r.user.id IN :followingIds AND r.isActive = true ORDER BY r.createdAt DESC")
+    @Query("SELECT r FROM PerfactoReview r WHERE r.place.id = :placeId AND r.user.id IN :followingIds AND r.isActive = true ORDER BY r.regDate DESC")
     List<PerfactoReview> findFollowingReviews(@Param("placeId") Long placeId, @Param("followingIds") List<Long> followingIds);
 
     /**
      * 특정 카테고리의 사용자 리뷰 중 최고 평점 리뷰 조회
      */
-    @Query("SELECT r FROM PerfactoReview r JOIN r.place p WHERE r.user.id = :userId AND p.category.id = :categoryId AND r.overallRating = :rating ORDER BY r.createdAt DESC")
+    @Query("SELECT r FROM PerfactoReview r JOIN r.place p WHERE r.user.id = :userId AND p.category.id = :categoryId AND r.overallRating = :rating ORDER BY r.regDate DESC")
     List<PerfactoReview> findTopRatedReviewsByUserAndCategory(
         @Param("userId") Long userId,
         @Param("categoryId") Long categoryId,
@@ -94,7 +94,7 @@ public interface PerfactoReviewRepository extends JpaRepository<PerfactoReview, 
      * 좋아요 수 상위 리뷰 조회
      */
     @Query("SELECT r FROM PerfactoReview r WHERE r.place.id = :placeId AND r.isActive = true " +
-           "ORDER BY r.likeCount DESC, r.createdAt DESC")
+           "ORDER BY r.likeCount DESC, r.regDate DESC")
     List<PerfactoReview> findTopLikedReviewsByPlaceId(
         @Param("placeId") Long placeId, Pageable pageable);
 }
