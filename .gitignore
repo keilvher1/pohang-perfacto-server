@@ -48,3 +48,9 @@ nginx/certbot/
 
 # macOS
 .DS_Store
+
+# Log files
+*.log
+admin.html
+sample_data.sql
+sample_data_fixed.sql
