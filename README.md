@@ -1,100 +1,106 @@
-# 🗝 Perfacto Server - 방탈출 예약/리뷰/동행 플랫폼 백엔드
+# 🗺️ Perfacto Server - 포항 지역 장소 추천 플랫폼 백엔드
 
-> **웹 스크래핑을 활용한 방탈출 예약/리뷰/동행 통합 플랫폼 - 백엔드 레포지토리**
+> **지도 기반 포항 지역 맛집/카페/관광지 추천 플랫폼 - 백엔드 레포지토리**
 >
-> 프로젝트명: **Perfacto Server** (구 SCRD Back-End)
+> 프로젝트명: **Perfacto Server**
 
+[![Perfacto 앱 데모 영상](https://img.youtube.com/vi/ahx63G0vqEk/0.jpg)](https://youtube.com/shorts/ahx63G0vqEk?feature=share)
 
-[![SCRD 앱 홍보영상](https://img.youtube.com/vi/Qu4Drg5c4mA/0.jpg)](https://www.youtube.com/watch?v=Qu4Drg5c4mA)
+- **기간**: 2024.10.23 ~ 2025.05.20 (총 7개월)
+- [📱 Perfacto 앱 데모 영상](https://youtube.com/shorts/ahx63G0vqEk?feature=share)
 
-- **기간**: 2024.10.23 ~ 2025.05.20 (총 5개월)<br>
-- [📱 Google Play에서 SCRD 앱 설치하기](https://play.google.com/store/apps/details?id=com.scrd.scrd)
-- [📽 베타 버전 데모 영상 (Google Drive)](https://drive.google.com/drive/folders/1C0baog9rQ4LC-XmpKbN3uXVEPXcWIz9O)
+---
 
-
-—
 ## 📌 프로젝트 개요
 
-기존 방탈출 카페 예약 시스템의 단편성과 정보 부족 문제를 해결하고자 전국 방탈출 카페의 예약 가능 시간과 테마 정보를 통합 제공하는 웹/모바일 기반 예약 플랫폼을 개발했습니다.
+포항 지역 주민과 방문객을 위한 맛집, 카페, 관광지, 숙박시설 등을 통합 관리하는 지도 기반 장소 추천 플랫폼입니다. 사용자들은 1km 반경 내 장소를 검색하고, 3단계 리뷰 시스템을 통해 상세한 평가를 남기며, ELO 랭킹 시스템으로 신뢰도 높은 장소 순위를 확인할 수 있습니다.
 
-- 실시간 예약 가능 여부 제공
-- 조건 기반 테마 검색, 리뷰 등록, 동행 모집 기능 구현
-- SNS 로그인 및 JWT 인증
-- 실시간 알림 및 유저 레벨/포인트 시스템까지 통합한 **엔드-투-엔드 서비스 플랫폼 구축**
+- **위치 기반 1km 필터링**: 현재 위치 기반 주변 장소 실시간 추천
+- **3단계 리뷰 시스템**: 다양성(Variety), 분위기(Atmosphere), 추천도(Recommend) 평가
+- **ELO 랭킹 시스템**: 장소 간 비교를 통한 신뢰도 높은 순위 산정
+- **소셜 로그인**: 카카오, 구글, 애플 로그인 지원
+- **실시간 알림**: 리뷰, 댓글 등 활동 알림 제공
 
-—
+---
 
 ## 🧩 주요 기능
 
-### ✅ 인증/회원 시스템 (기여도 100%)
+### ✅ 인증/회원 시스템
 - **Spring Security + JWT 기반 인증 시스템 구축**
-- 소셜 로그인(OAuth2.0) 연동 (카카오)
+- 소셜 로그인(OAuth2.0) 연동 (카카오, 구글, 애플)
 - **RTR(Refresh Token Rotation)** 구조로 UX 개선
-- 자동 닉네임 부여 및 탈퇴 처리 로직 포함
+- Redis 기반 토큰 관리 및 자동 갱신
 
-### ✅ 테마 API (기여도 100%)
-- 관리자 권한 기반 CRUD API 구현
-- QueryDSL 기반 필터링 (난이도, 평점, 공포도, 활동성, 지역)
-- MongoDB와 연동된 예약 가능 시간 조회
-- 추천순 정렬 (리뷰 수 + 평점 가중치 반영)
+### ✅ 장소 API
+- **1km 반경 위치 기반 필터링** (Haversine 공식 활용)
+- QueryDSL 기반 다중 조건 검색 (카테고리, 평점, 거리)
+- ELO 랭킹 기반 장소 순위 제공
+- 장소 상세 정보 및 리뷰 통계 조회
 
-### ✅ 리뷰 API (기여도 100%)
-- 공포도, 활동성, 평점 기반 리뷰 작성 시스템 구축
-- 고정 해시태그 등록 및 통계 필터링 지원
-- 리뷰 등록 시 자동 포인트 지급 및 회원 레벨 반영
+### ✅ 리뷰 API
+- **3단계 평가 시스템**: Variety, Atmosphere, Recommend
+- 이미지 업로드 지원 (최대 5장)
+- 리뷰 등록 시 자동 포인트 지급
+- ELO 랭킹 시스템과 연동된 장소 평가
 
-### ✅ 일행 모집 API / 실시간 알림 (기여도 100%)
-- 댓글/대댓글 기능 (Self-Reference)
-- N+1 문제 해결 위한 JOIN FETCH 최적화
-- **SSE(Server-Sent Events)** 기반 실시간 알림 구축
-- 모집 날짜 자동 종료 로직 (운영 자동화)
+### ✅ ELO 랭킹 시스템
+- 장소 간 1:1 비교를 통한 상대적 순위 산정
+- K-factor 기반 동적 점수 조정
+- 카테고리별 랭킹 관리
+- 실시간 랭킹 업데이트
 
-### ✅ 배포 / 인프라 운영 (기여도 100%)
-- **Nginx + HTTPS 서버 구성** 
-- **Kubenetes 기반** 다중 서버 운영
-- AWS EC2 기반 인프라 관리
+### ✅ 배포 / 인프라 운영
+- **Nginx + HTTPS 서버 구성**
+- **Docker + Docker Compose** 기반 컨테이너화
+- AWS EC2 + RDS 인프라 관리
 - GitHub Actions 기반 **CI/CD 자동 배포 파이프라인 구축**
 
-—
+---
 
 ## 💡 사용 기술 스택
 
 ### 🧱 Backend
-- **Spring Boot**, Spring Security, JWT, OAuth2.0
-- **Redis** (토큰 관리), **MongoDB + MySQL**
+- **Spring Boot 3.3.5**, Spring Security, JWT, OAuth2.0
+- **Redis** (토큰 관리, 캐싱)
+- **MySQL** (메인 DB), **MongoDB** (로그 저장)
 - Spring Data JPA, QueryDSL
-- Selenium + Kafka (크롤링 → 비동기 저장)
+- Haversine Formula (위치 기반 필터링)
 
 ### 🛠 Infra / DevOps
-- **Docker**, **Docker Compose**, **Kubenetes** , **Nginx**
-- AWS EC2, S3, RDS, Route 53
-- GitHub Actions (CI/CD), Let’s Encrypt (HTTPS)
+- **Docker**, **Docker Compose**, **Nginx**
+- AWS EC2, RDS, S3, Route 53
+- GitHub Actions (CI/CD)
+- Let's Encrypt (HTTPS)
+
+### 📱 Mobile
+- **Flutter** (크로스 플랫폼)
+- Provider (상태 관리)
+- Google Maps API (지도 기능)
+- Firebase (푸시 알림)
 
 ### 📦 기타
-- **SSE(Server-Sent Events)** (실시간 알림)
-- MongoDB TTL 인덱스 (예약 데이터 자동 삭제)
+- ELO Rating Algorithm (장소 랭킹)
+- 위치 기반 필터링 (1km 반경)
+- 이미지 업로드 및 최적화
 
-—
+---
 
-## 👥 팀 구성 및 역할
+## 🏗️ 시스템 아키텍처
 
-오세훈: 기획, 백엔드, 인프라, 프론트엔드, 디자인(UI)
+```
+[Flutter App] <--> [Nginx] <--> [Spring Boot Server]
+                                      |
+                    +----------------+----------------+
+                    |                |                |
+                 [MySQL]          [Redis]        [MongoDB]
+                (메인 DB)      (토큰/캐시)       (로그)
+```
 
-김은진: 디자인 협업
-
-임성빈: 프론트엔드 협업
-
-김경진: 데이터 마이닝
-
-이민규: 모바일 앱 개발
-
-> 프로젝트 전반의 아키텍처 및 기능 개발을 주도했으며, **백엔드 전 영역, 배포, CI/CD, 인증 시스템, 실시간 알림, Mongo 기반 예약 관리까지 100% 기여**
-
-—
+---
 
 ## 📞 문의
-> 개발자 오세훈 · E-mail: saint0325@handong.ac.kr
+> 개발자 이민규 · E-mail: keilvher@gmail.com
 
-—
+---
 
-본 프로젝트는 기술적 도전과 실용성을 함께 고려하여 기획/개발된 풀스택 서비스입니다. 현업에서 바로 활용 가능한 구조를 설계하고, 실제 예약/리뷰/동행이라는 사용자 시나리오를 기반으로 제작되었습니다.
+본 프로젝트는 포항 지역 특화 서비스로, 실제 사용자의 위치 기반 맞춤형 장소 추천을 목표로 개발되었습니다. ELO 랭킹 시스템을 통해 신뢰도 높은 장소 평가를 제공하며, 지속적인 사용자 피드백을 반영하여 개선하고 있습니다.
