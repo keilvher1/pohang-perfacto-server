@@ -65,7 +65,7 @@ jobs:
           Type=simple
           User=$USER
           WorkingDirectory=$HOME/perfacto-server
-          ExecStart=/usr/bin/java -Dspring.datasource.url=jdbc:mysql://database-1.cr6kassm00po.ap-northeast-2.rds.amazonaws.com:3306/scrd -Dspring.datasource.username=admin -Dspring.datasource.password=wntkfkd11! -Dspring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver -jar $HOME/perfacto-server/app.jar
+          ExecStart=/usr/bin/java -Dspring.datasource.url=jdbc:mysql://database-1.cr6kassm00po.ap-northeast-2.rds.amazonaws.com:3306/scrd -Dspring.datasource.username=admin -Dspring.datasource.password=wntkfkd11! -Dspring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver -Dspring.data.redis.host=127.0.0.1 -Dspring.data.redis.port=6379 -jar $HOME/perfacto-server/app.jar
           Restart=on-failure
           RestartSec=10
           StandardOutput=append:$HOME/perfacto-server/app.log
