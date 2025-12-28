@@ -45,8 +45,8 @@ jobs:
         target: "~/perfacto-server"
         strip_components: 2
 
-    # 7. EC2에서 애플리케이션 재시작
-    - name: Restart Application on EC2
+    # 7. EC2에서 systemd 서비스 설정 및 재시작
+    - name: Setup and Restart Application on EC2
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       uses: appleboy/ssh-action@master
       with:
@@ -55,32 +55,53 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         command_timeout: 30m
         script: |
-          # 기존 프로세스 종료
-          pkill -f 'java -jar' || true
-          sleep 2
+          # systemd 서비스 파일 생성 (없는 경우에만)
+          if [ ! -f /etc/systemd/system/perfacto-server.service ]; then
+            sudo tee /etc/systemd/system/perfacto-server.service > /dev/null << 'SERVICE_END'
+          [Unit]
+          Description=Perfacto Spring Boot Server
+          After=network.target
 
-          # 재시작 스크립트 생성
-          cat > ~/perfacto-server/restart.sh << 'SCRIPT_END'
-          #!/bin/bash
-          cd ~/perfacto-server
-          nohup java -jar *.jar > app.log 2>&1 < /dev/null &
-          disown
-          SCRIPT_END
+          [Service]
+          Type=simple
+          User=$USER
+          WorkingDirectory=/home/$USER/perfacto-server
+          ExecStart=/usr/bin/java -jar /home/$USER/perfacto-server/app.jar
+          Restart=on-failure
+          RestartSec=10
+          StandardOutput=append:/home/$USER/perfacto-server/app.log
+          StandardError=append:/home/$USER/perfacto-server/app.log
 
-          chmod +x ~/perfacto-server/restart.sh
+          [Install]
+          WantedBy=multi-user.target
+          SERVICE_END
 
-          # 스크립트 실행
-          ~/perfacto-server/restart.sh
-
-          # 프로세스 시작 확인
-          sleep 8
-          if pgrep -f 'java -jar' > /dev/null; then
-            echo "✅ Server restarted successfully"
-          else
-            echo "❌ Server failed to start. Checking logs..."
-            tail -50 ~/perfacto-server/app.log || true
-            exit 1
+            # systemd 데몬 리로드 및 서비스 활성화
+            sudo systemctl daemon-reload
+            sudo systemctl enable perfacto-server.service
+            echo "✅ systemd service created and enabled"
           fi
+
+          # 서비스 재시작
+          sudo systemctl restart perfacto-server.service
+
+          # 서비스 상태 확인 (최대 15초 대기)
+          for i in {1..15}; do
+            sleep 1
+            if sudo systemctl is-active --quiet perfacto-server.service; then
+              echo "✅ Server restarted successfully"
+              sudo systemctl status perfacto-server.service --no-pager
+              exit 0
+            fi
+          done
+
+          # 시작 실패 시 로그 출력
+          echo "❌ Server failed to start. Service status:"
+          sudo systemctl status perfacto-server.service --no-pager
+          echo ""
+          echo "Recent logs:"
+          tail -50 ~/perfacto-server/app.log || true
+          exit 1
 
     # 8. Slack 알림 (선택사항)
     - name: Notify Slack on success
