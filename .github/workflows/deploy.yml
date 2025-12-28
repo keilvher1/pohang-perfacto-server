@@ -55,9 +55,8 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         command_timeout: 30m
         script: |
-          # systemd 서비스 파일 생성 (없는 경우에만)
-          if [ ! -f /etc/systemd/system/perfacto-server.service ]; then
-            sudo tee /etc/systemd/system/perfacto-server.service > /dev/null <<SERVICE_END
+          # systemd 서비스 파일 생성 (항상 최신 설정으로 업데이트)
+          sudo tee /etc/systemd/system/perfacto-server.service > /dev/null <<SERVICE_END
           [Unit]
           Description=Perfacto Spring Boot Server
           After=network.target
@@ -76,11 +75,10 @@ jobs:
           WantedBy=multi-user.target
           SERVICE_END
 
-            # systemd 데몬 리로드 및 서비스 활성화
-            sudo systemctl daemon-reload
-            sudo systemctl enable perfacto-server.service
-            echo "✅ systemd service created and enabled"
-          fi
+          # systemd 데몬 리로드 및 서비스 활성화
+          sudo systemctl daemon-reload
+          sudo systemctl enable perfacto-server.service
+          echo "✅ systemd service updated"
 
           # 서비스 재시작
           sudo systemctl restart perfacto-server.service
