@@ -49,20 +49,28 @@ jobs:
     - name: Restart Application on EC2
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       uses: appleboy/ssh-action@master
-      continue-on-error: true
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_SSH_KEY }}
+        command_timeout: 30m
         script: |
           # 기존 프로세스 종료
-          pkill -f 'java -jar' || true
+          pkill -9 -f 'java -jar' || true
+          sleep 3
 
           # 새 JAR로 애플리케이션 시작
           cd ~/perfacto-server
-          nohup java -jar *.jar > app.log 2>&1 < /dev/null &
+          nohup java -jar *.jar > app.log 2>&1 &
 
-          echo "Deployment completed"
+          # 프로세스가 시작되었는지 확인
+          sleep 5
+          if pgrep -f 'java -jar' > /dev/null; then
+            echo "✅ Server restarted successfully"
+          else
+            echo "❌ Server failed to start"
+            exit 1
+          fi
 
     # 8. Slack 알림 (선택사항)
     - name: Notify Slack on success
