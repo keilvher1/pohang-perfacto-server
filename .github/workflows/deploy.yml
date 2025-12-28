@@ -57,7 +57,7 @@ jobs:
         script: |
           # systemd 서비스 파일 생성 (없는 경우에만)
           if [ ! -f /etc/systemd/system/perfacto-server.service ]; then
-            sudo tee /etc/systemd/system/perfacto-server.service > /dev/null << 'SERVICE_END'
+            sudo tee /etc/systemd/system/perfacto-server.service > /dev/null <<SERVICE_END
           [Unit]
           Description=Perfacto Spring Boot Server
           After=network.target
@@ -65,12 +65,12 @@ jobs:
           [Service]
           Type=simple
           User=$USER
-          WorkingDirectory=/home/$USER/perfacto-server
-          ExecStart=/usr/bin/java -jar /home/$USER/perfacto-server/app.jar
+          WorkingDirectory=$HOME/perfacto-server
+          ExecStart=/usr/bin/java -jar $HOME/perfacto-server/app.jar
           Restart=on-failure
           RestartSec=10
-          StandardOutput=append:/home/$USER/perfacto-server/app.log
-          StandardError=append:/home/$USER/perfacto-server/app.log
+          StandardOutput=append:$HOME/perfacto-server/app.log
+          StandardError=append:$HOME/perfacto-server/app.log
 
           [Install]
           WantedBy=multi-user.target
