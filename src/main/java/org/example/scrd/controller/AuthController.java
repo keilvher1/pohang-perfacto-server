@@ -11,6 +11,7 @@ import org.example.scrd.dto.AuthResponse;
 import org.example.scrd.domain.User;
 import org.example.scrd.util.JwtUtil;
 import org.example.scrd.dto.UserDto;
+import org.example.scrd.controller.response.ApiResponse;
 import org.example.scrd.controller.response.KakaoLoginResponse;
 import org.example.scrd.controller.response.AppleLoginResponse;
 import org.example.scrd.controller.response.NaverLoginResponse;
@@ -45,7 +46,7 @@ public class AuthController {
     private long EXPIRE_REFRESH_TIME_MS;
 
     @GetMapping("/perfacto/auth/kakao-login")
-    public ResponseEntity<KakaoLoginResponse> kakaoLogin(
+    public ResponseEntity<ApiResponse<KakaoLoginResponse>> kakaoLogin(
             @RequestParam String code,
             HttpServletRequest request,
             HttpServletResponse response) { // HttpServletResponse 추가
@@ -63,11 +64,14 @@ public class AuthController {
 
         // 응답 본문에 JWT 토큰 및 사용자 정보 추가
         return ResponseEntity.ok(
-                KakaoLoginResponse.builder()
-                        .name(userDto.getName())
-                        .profileImageUrl(userDto.getProfileImageUrl())
-                        .email(userDto.getEmail())
-                        .build());
+                ApiResponse.success(
+                        KakaoLoginResponse.builder()
+                                .name(userDto.getName())
+                                .profileImageUrl(userDto.getProfileImageUrl())
+                                .email(userDto.getEmail())
+                                .accessToken(jwtToken.get(0))
+                                .refreshToken(jwtToken.get(1))
+                                .build()));
     }
 
     @PostMapping("/perfacto/auth/apple-login")

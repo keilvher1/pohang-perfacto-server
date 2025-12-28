@@ -10,4 +10,6 @@ public class KakaoLoginResponse {
     private String name;
     private String profileImageUrl;
     private String email;
+    private String accessToken;
+    private String refreshToken;
 }
