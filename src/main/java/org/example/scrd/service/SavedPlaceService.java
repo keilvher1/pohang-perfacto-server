@@ -74,7 +74,12 @@ public class SavedPlaceService {
      */
     public List<Place> getSavedPlaces(Long userId) {
         User user = userRepository.findById(userId)
-            .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+            .orElse(null);
+
+        // 사용자가 존재하지 않으면 빈 리스트 반환
+        if (user == null) {
+            return new ArrayList<>();
+        }
 
         List<SavedPlace> savedPlaces = savedPlaceRepository.findAllByUserOrderByRegDateDesc(user);
 
