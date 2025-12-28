@@ -56,19 +56,29 @@ jobs:
         command_timeout: 30m
         script: |
           # 기존 프로세스 종료
-          pkill -9 -f 'java -jar' || true
-          sleep 3
+          pkill -f 'java -jar' || true
+          sleep 2
 
-          # 새 JAR로 애플리케이션 시작
+          # 재시작 스크립트 생성
+          cat > ~/perfacto-server/restart.sh << 'SCRIPT_END'
+          #!/bin/bash
           cd ~/perfacto-server
-          nohup java -jar *.jar > app.log 2>&1 &
+          nohup java -jar *.jar > app.log 2>&1 < /dev/null &
+          disown
+          SCRIPT_END
 
-          # 프로세스가 시작되었는지 확인
-          sleep 5
+          chmod +x ~/perfacto-server/restart.sh
+
+          # 스크립트 실행
+          ~/perfacto-server/restart.sh
+
+          # 프로세스 시작 확인
+          sleep 8
           if pgrep -f 'java -jar' > /dev/null; then
             echo "✅ Server restarted successfully"
           else
-            echo "❌ Server failed to start"
+            echo "❌ Server failed to start. Checking logs..."
+            tail -50 ~/perfacto-server/app.log || true
             exit 1
           fi
 
