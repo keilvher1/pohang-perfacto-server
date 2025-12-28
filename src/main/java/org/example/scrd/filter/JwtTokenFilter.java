@@ -123,14 +123,20 @@ public class JwtTokenFilter extends OncePerRequestFilter {
      */
     private void processAccessToken(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain, String token)
             throws ServletException, IOException {
-        // Access Token에서 사용자 정보 추출
-        User loginUser = authService.getLoginUser(JwtUtil.getUserId(token, SECRET_KEY));
+        try {
+            // Access Token에서 사용자 정보 추출
+            User loginUser = authService.getLoginUser(JwtUtil.getUserId(token, SECRET_KEY));
 
-        // 사용자 인증 설정
-        setAuthenticationForUser(request, loginUser);
+            // 사용자 인증 설정
+            setAuthenticationForUser(request, loginUser);
 
-        // 필터 체인의 다음 단계로 요청을 전달
-        filterChain.doFilter(request, response);
+            // 필터 체인의 다음 단계로 요청을 전달
+            filterChain.doFilter(request, response);
+        } catch (IllegalArgumentException e) {
+            // JWT는 유효하지만 사용자가 DB에 없는 경우 (삭제되었거나 DB 초기화됨)
+            System.out.println("❌ User not found in database: " + e.getMessage());
+            throw new DoNotLoginException();
+        }
     }
 
     /**
@@ -145,21 +151,27 @@ public class JwtTokenFilter extends OncePerRequestFilter {
      */
     private void processRefreshToken(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain, String refreshToken)
             throws ServletException, IOException {
-        // Refresh Token 검증 및 새로운 토큰 발급
-        List<String> newTokens = jwtUtil.validateRefreshToken(refreshToken, SECRET_KEY);
+        try {
+            // Refresh Token 검증 및 새로운 토큰 발급
+            List<String> newTokens = jwtUtil.validateRefreshToken(refreshToken, SECRET_KEY);
 
-        // 응답 헤더에 새로운 Access Token과 Refresh Token 설정
-        response.setHeader("Authorization", "Bearer " + newTokens.get(0)); // Access Token
-        response.setHeader("X-Refresh-Token", newTokens.get(1));
+            // 응답 헤더에 새로운 Access Token과 Refresh Token 설정
+            response.setHeader("Authorization", "Bearer " + newTokens.get(0)); // Access Token
+            response.setHeader("X-Refresh-Token", newTokens.get(1));
 
-        // 새로운 Access Token에서 사용자 정보 추출
-        User loginUser = authService.getLoginUser(JwtUtil.getUserId(newTokens.get(0), SECRET_KEY));
+            // 새로운 Access Token에서 사용자 정보 추출
+            User loginUser = authService.getLoginUser(JwtUtil.getUserId(newTokens.get(0), SECRET_KEY));
 
-        // 사용자 인증 설정
-        setAuthenticationForUser(request, loginUser);
+            // 사용자 인증 설정
+            setAuthenticationForUser(request, loginUser);
 
-        // 필터 체인의 다음 단계로 요청을 전달
-        filterChain.doFilter(request, response);
+            // 필터 체인의 다음 단계로 요청을 전달
+            filterChain.doFilter(request, response);
+        } catch (IllegalArgumentException e) {
+            // JWT는 유효하지만 사용자가 DB에 없는 경우 (삭제되었거나 DB 초기화됨)
+            System.out.println("❌ User not found in database: " + e.getMessage());
+            throw new DoNotLoginException();
+        }
     }
 
     /**
