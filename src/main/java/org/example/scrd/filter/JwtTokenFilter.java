@@ -182,7 +182,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private void setAuthenticationForUser(HttpServletRequest request, User user) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(
-                        user,
+                        user.getId().toString(), // Store userId as String for authentication.getName()
                         null,
                         List.of(new SimpleGrantedAuthority(user.getRole().name()))); // 예: ROLE_USER
 
