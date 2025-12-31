@@ -24,22 +24,6 @@ public class PublicReviewController {
     private final PerfactoReviewService reviewService;
 
     /**
-     * 장소별 리뷰 조회 (Public)
-     * GET /perfacto/every/reviews/place/{placeId}?page=0&size=20
-     */
-    @GetMapping("/place/{placeId}")
-    public ResponseEntity<ApiResponse<Page<ReviewResponse>>> getReviewsByPlace(
-        @PathVariable Long placeId,
-        @PageableDefault(size = 20, sort = "regDate", direction = Sort.Direction.DESC) Pageable pageable
-    ) {
-        log.info("Public API - 장소별 리뷰 조회: placeId={}, page={}, size={}",
-            placeId, pageable.getPageNumber(), pageable.getPageSize());
-
-        Page<ReviewResponse> response = reviewService.getReviewsByPlace(placeId, pageable);
-        return ResponseEntity.ok(ApiResponse.success(response));
-    }
-
-    /**
      * 사용자별 리뷰 조회 (Public)
      * GET /perfacto/every/reviews/user/{userId}?page=0&size=20
      */
