@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.scrd.controller.response.ApiResponse;
-import org.example.scrd.dto.request.ReviewCreateRequest;
+import org.example.scrd.dto.ReviewCreateRequest;
 import org.example.scrd.dto.response.ReviewResponse;
 import org.example.scrd.service.PerfactoReviewService;
 import org.example.scrd.util.JwtUtil;

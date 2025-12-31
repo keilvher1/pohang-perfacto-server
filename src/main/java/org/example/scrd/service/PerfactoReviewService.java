@@ -3,7 +3,7 @@ package org.example.scrd.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.scrd.domain.*;
-import org.example.scrd.dto.request.ReviewCreateRequest;
+import org.example.scrd.dto.ReviewCreateRequest;
 import org.example.scrd.dto.response.ReviewResponse;
 import org.example.scrd.exception.AlreadyJoinedException;
 import org.example.scrd.exception.NotFoundException;
@@ -51,13 +51,15 @@ public class PerfactoReviewService {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new NotFoundException("사용자를 찾을 수 없습니다."));
 
-        // 임시: 기존 rating을 ReviewRating으로 변환
-        ReviewRating rating = request.getRating() >= 4 ? ReviewRating.GOOD :
-                              request.getRating() >= 2.5 ? ReviewRating.NEUTRAL :
-                              ReviewRating.BAD;
-
+        // 3단계 리뷰 시스템: overallRating과 reasons 사용
         PerfactoReview review = PerfactoReview.create(
-            place, user, rating, new HashSet<>(), null, null);
+            place,
+            user,
+            request.getOverallRating(),
+            request.getReasons() != null ? request.getReasons() : new HashSet<>(),
+            request.getComparedPlaceId(),
+            request.getComparison()
+        );
 
         PerfactoReview savedReview = reviewRepository.save(review);
 
